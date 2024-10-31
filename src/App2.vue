@@ -1,11 +1,13 @@
-<script lang="js">
-import ObjektDisplay from './components/Objekt-display.vue';
+<script setup lang="ts">
+import ObjektDisplay from './components/ObjektDisplay.vue';
 
 </script>
 
 <template>
     <div>
         <h1>This is a title</h1>
-        <ObjektDisplay />
+        <Suspense>
+            <ObjektDisplay />
+        </Suspense>
     </div>
 </template>
