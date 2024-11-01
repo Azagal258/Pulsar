@@ -45,4 +45,10 @@
     grid-template-columns: repeat(5, 1fr);
     gap: 1rem;
 }
+
+@media (max-width : 800px) {
+    .container{
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
 </style>
