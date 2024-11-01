@@ -1,7 +1,7 @@
 <script setup lang="ts">
     const objektsQuery = `
         query MyQuery 
-            {collections(limit: 18){
+            {collections(limit: 15){
                 front
                 id
             }
@@ -28,11 +28,11 @@
 
 <template>
     <div id="title">
-        <h2>10 first objekts query</h2>
+        <h2>First objekts query</h2>
     </div>
     
     <div class="container">
-        <img v-for="singleImage in imageList" v-bind:src="singleImage.front" v-bind:alt="singleImage.id" width="100%"/>
+        <img v-for="singleImage in imageList" :src="singleImage.front" :alt="singleImage.id" width="100%"/>
     </div>
 </template>
 
@@ -42,7 +42,7 @@
 } */ 
 .container{
     display: grid;
-    grid-template-columns: 18% 18% 18% 18% 18%;
-    gap: 2%;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1rem;
 }
 </style>
