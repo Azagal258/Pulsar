@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import ObjektDisplay from './components/ObjektDisplay.vue';
 import { ref } from "vue";
 import FilterBar from "./components/FilterBar.vue";
 
@@ -23,6 +24,11 @@ const artist = ref<string | null>(null);
       <div>Group: {{ group }}</div>
       <div>Artist: {{ artist }}</div>
     </div>
+  </div>
+  <div>
+    <Suspense>
+      <ObjektDisplay/>
+    </Suspense>
   </div>
 </template>
 
