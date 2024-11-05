@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { FilterType } from "../types/filter";
 
 const objektClass = defineModel<string | null>("objektClass", {
   required: true,

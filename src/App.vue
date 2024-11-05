@@ -27,7 +27,13 @@ const artist = ref<string | null>(null);
   </div>
   <div>
     <Suspense>
-      <ObjektDisplay/>
+      <ObjektDisplay 
+        v-model:objekt-class= "objektClass"
+        v-model:objekt-season= "objektSeason"
+        v-model:objekt-group= "group"
+        v-model:objekt-artist= "artist"
+      />
+
     </Suspense>
   </div>
 </template>

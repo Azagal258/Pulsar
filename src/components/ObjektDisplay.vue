@@ -1,9 +1,14 @@
 <script setup lang="ts">
+    const objektClass = defineModel<string | null>("objektClass");
+    const objektSeason = defineModel<string | null>("objektSeason");
+    const objektGroup = defineModel<string | null>("objektGroup");
+    const objektArtist = defineModel<string | null>("objektArtist");
+
     const objektsQuery = `
-        query MyQuery 
-            {collections(limit: 15){
-                front
+        query MyQuery {
+            collections(where: {class_eq: "Special"}, limit: 15) {
                 id
+                front
             }
         }
         `;
@@ -29,6 +34,10 @@
 <template>
     <div id="title">
         <h2>First objekts query</h2>
+        <h2>{{ objektClass }}</h2>
+        <h2>{{ objektSeason }}</h2>
+        <h2>{{ objektGroup }}</h2>
+        <h2>{{ objektArtist }}</h2>
     </div>
     
     <div class="container">
