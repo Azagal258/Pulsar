@@ -1,43 +1,64 @@
 <script setup lang="ts">
-    const objektClass = defineModel<string | null>("objektClass");
-    const objektSeason = defineModel<string | null>("objektSeason");
-    const objektGroup = defineModel<string | null>("objektGroup");
-    const objektArtist = defineModel<string | null>("objektArtist");
-
-    const objektsQuery = `
-        query MyQuery {
-            collections(where: {class_eq: "Special"}, limit: 15) {
-                id
-                front
-            }
+    import { ref, watch } from "vue"
+    const props = defineProps({
+        objektClass : String,
+        objektSeason : String,
+        objektGroup : String,
+        objektArtist : String
+    })
+    
+    const imageList = ref<any[]>([])
+    
+    const recalculateImageList = async() => {
+        const queryFilters = {
+            class_eq : props.objektClass,
+            season_eq : props.objektSeason,
+            artists_containsAll : props.objektGroup,
+            member_eq : props.objektArtist
         }
-        `;
+
+        const whereClause = Object.entries(queryFilters)
+            .filter(([_, value]) => value)
+            .map(([key, value]) => `${key}: "${value}"`)
+            .join(", ")
         
-    const response = await fetch("https://cosmo-api.gillespie.eu/graphql", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            query: objektsQuery,
-        })
-    });
+        const objektsQuery = `
+            query MyQuery {
+                collections(where: { ${whereClause} } , limit: 15, orderBy: timestamp_DESC) {
+                    id
+                    front
+                }
+            }`
+        console.log(objektsQuery);
 
-    const parsedData = await response.json();
-    const imageList = parsedData.data.collections
+        const response = await fetch("https://cosmo-api.gillespie.eu/graphql", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                query: objektsQuery,
+            })
+        });
 
+        const parsedData = await response.json();
+        imageList.value = parsedData.data.collections
+    };
 
+    console.log(imageList.value)
 
-    console.log(imageList);
+    recalculateImageList();
+
+    watch(
+        props, recalculateImageList
+    )
+
+    console.log(imageList)
 </script>
 
 <template>
     <div id="title">
         <h2>First objekts query</h2>
-        <h2>{{ objektClass }}</h2>
-        <h2>{{ objektSeason }}</h2>
-        <h2>{{ objektGroup }}</h2>
-        <h2>{{ objektArtist }}</h2>
     </div>
     
     <div class="container">

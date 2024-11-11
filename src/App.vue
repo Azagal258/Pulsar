@@ -28,10 +28,10 @@ const artist = ref<string | null>(null);
   <div>
     <Suspense>
       <ObjektDisplay 
-        v-model:objekt-class= "objektClass"
-        v-model:objekt-season= "objektSeason"
-        v-model:objekt-group= "group"
-        v-model:objekt-artist= "artist"
+        :objekt-class= "objektClass"
+        :objekt-season= "objektSeason"
+        :objekt-group= "group"
+        :objekt-artist= "artist"
       />
 
     </Suspense>
