@@ -85,7 +85,7 @@ const artmsArtists = [...artmsMembers, ...artmsSubunits];
         <label for="group">Group</label>
         <select id="group" v-model="group" @change="artist = null">
           <option :value="null">All</option>
-          <option value="ARTMS">ARTMS</option>
+          <option value="artms">ARTMS</option>
           <option value="tripleS">tripleS</option>
         </select>
       </div>
@@ -93,7 +93,7 @@ const artmsArtists = [...artmsMembers, ...artmsSubunits];
     <div class="col">
       <div class="fieldset">
         <label id="artist" v-if="group != null" for="artist">Artist</label>
-        <select id="artist" v-if="group === 'ARTMS'" v-model="artist">
+        <select id="artist" v-if="group === 'artms'" v-model="artist">
           <option :value="null">All</option>
           <option v-for="artist in artmsArtists" :key="artist" :value="artist">
             {{ artist }}
