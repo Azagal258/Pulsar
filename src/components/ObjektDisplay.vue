@@ -5,22 +5,22 @@
         objektSeason : String,
         objektGroup : String,
         objektArtist : String
-    })
+    });
     
-    const imageList = ref<any[]>([])
+    const imageList = ref<any[]>([]);
     
     const recalculateImageList = async() => {
         const queryFilters = {
-            class_eq : props.objektClass,
-            season_eq : props.objektSeason,
-            artists_containsAll : props.objektGroup,
-            member_eq : props.objektArtist
-        }
+            class_eq: props.objektClass,
+            season_eq: props.objektSeason,
+            artists_containsAll: props.objektGroup,
+            member_eq: props.objektArtist
+        };
 
         const whereClause = Object.entries(queryFilters)
             .filter(([_, value]) => value)
             .map(([key, value]) => `${key}: "${value}"`)
-            .join(", ")
+            .join(", ");
         
         const objektsQuery = `
             query MyQuery {
@@ -28,8 +28,7 @@
                     id
                     front
                 }
-            }`
-        console.log(objektsQuery);
+            }`;
 
         const response = await fetch("https://cosmo-api.gillespie.eu/graphql", {
             method: "POST",
@@ -42,18 +41,15 @@
         });
 
         const parsedData = await response.json();
-        imageList.value = parsedData.data.collections
-    };
-
-    console.log(imageList.value)
+        imageList.value = parsedData.data.collections;
+    }
 
     recalculateImageList();
 
     watch(
         props, recalculateImageList
-    )
+    );
 
-    console.log(imageList)
 </script>
 
 <template>
