@@ -27,7 +27,13 @@ const artist = ref<string | null>(null);
   </div>
   <div>
     <Suspense>
-      <ObjektDisplay/>
+      <ObjektDisplay 
+        :objekt-class= "objektClass"
+        :objekt-season= "objektSeason"
+        :objekt-group= "group"
+        :objekt-artist= "artist"
+      />
+
     </Suspense>
   </div>
 </template>

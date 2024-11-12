@@ -1,29 +1,55 @@
 <script setup lang="ts">
-    const objektsQuery = `
-        query MyQuery 
-            {collections(limit: 15){
-                front
-                id
-            }
-        }
-        `;
-        
-    const response = await fetch("https://cosmo-api.gillespie.eu/graphql", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-            query: objektsQuery,
-        })
+    import { ref, watch } from "vue"
+    const props = defineProps({
+        objektClass : String,
+        objektSeason : String,
+        objektGroup : String,
+        objektArtist : String
     });
+    
+    const imageList = ref<any[]>([]);
+    
+    const recalculateImageList = async() => {
+        const queryFilters = {
+            class_eq: props.objektClass,
+            season_eq: props.objektSeason,
+            artists_containsAll: props.objektGroup,
+            member_eq: props.objektArtist
+        };
 
-    const parsedData = await response.json();
-    const imageList = parsedData.data.collections
+        const whereClause = Object.entries(queryFilters)
+            .filter(([_, value]) => value)
+            .map(([key, value]) => `${key}: "${value}"`)
+            .join(", ");
+        
+        const objektsQuery = `
+            query MyQuery {
+                collections(where: { ${whereClause} } , limit: 15, orderBy: timestamp_DESC) {
+                    id
+                    front
+                }
+            }`;
 
+        const response = await fetch("https://cosmo-api.gillespie.eu/graphql", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                query: objektsQuery,
+            })
+        });
 
+        const parsedData = await response.json();
+        imageList.value = parsedData.data.collections;
+    }
 
-    console.log(imageList);
+    recalculateImageList();
+
+    watch(
+        props, recalculateImageList
+    );
+
 </script>
 
 <template>
