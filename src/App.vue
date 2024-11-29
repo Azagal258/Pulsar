@@ -18,14 +18,14 @@ const artist = ref<string | null>(null);
       v-model:artist="artist"
     />
 
-    <div>
+    <!-- <div>
       <div>Class: {{ objektClass }}</div>
       <div>Season :{{ objektSeason }}</div>
       <div>Group: {{ group }}</div>
       <div>Artist: {{ artist }}</div>
-    </div>
+    </div> -->
   </div>
-  <div>
+  <div class="display">
     <Suspense>
       <ObjektDisplay 
         :objekt-class= "objektClass"
@@ -41,5 +41,9 @@ const artist = ref<string | null>(null);
 <style scoped>
 .container {
   margin: 3rem;
+}
+
+.display {
+  margin: 0 4rem
 }
 </style>

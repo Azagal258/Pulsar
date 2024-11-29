@@ -56,25 +56,30 @@
     <div id="title">
         <h2>First objekts query</h2>
     </div>
-    
     <div class="container">
         <img v-for="singleImage in imageList" :src="singleImage.front" :alt="singleImage.id" width="100%"/>
     </div>
 </template>
 
-<style>
-/* div.container img{
-    border: 1px dotted aqua;
-} */ 
+<style scoped>
 .container{
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     gap: 1rem;
 }
 
-@media (max-width : 800px) {
+#title{
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+@media (max-width : 860px) {
     .container{
         grid-template-columns: repeat(3, 1fr);
     }
+}
+
+body {
+  padding: 1rem;
 }
 </style>
