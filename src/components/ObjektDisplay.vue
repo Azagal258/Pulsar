@@ -57,7 +57,12 @@
         <h2>First objekts query</h2>
     </div>
     <div class="container">
-        <img v-for="singleImage in imageList" :src="singleImage.front" :alt="singleImage.id" width="100%"/>
+        <div v-for="singleImage in imageList">
+            <div class="image-wrapper">
+                <img :src="singleImage.front" :alt="singleImage.id" class="image"/>
+                <input type="checkbox" class="buttontest"/>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -82,4 +87,30 @@
 body {
   padding: 1rem;
 }
+
+.image-wrapper .buttontest {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+.image-wrapper .buttontest:hover {
+    color: red;
+}
+
+.image-wrapper .buttontest:active {
+    color: green;
+}
+
+.image {
+    display: block;
+    width: 100%;
+}
+
+.image-wrapper {
+    display: inline-block;
+    position: relative;
+}
+
+
 </style>
