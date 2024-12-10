@@ -40,10 +40,10 @@ const artist = ref<string | null>(null);
 
 <style scoped>
 .container {
-  margin: 3rem;
+  margin: 1.5rem;
 }
 
 .display {
-  margin: 0 4rem
+  margin: 0 1.5rem
 }
 </style>
