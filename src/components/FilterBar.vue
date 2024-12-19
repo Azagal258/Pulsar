@@ -65,6 +65,7 @@ const artmsArtists = [...artmsMembers, ...artmsSubunits];
           <option value="Welcome">Welcome</option>
           <option value="Double">Double</option>
           <option value="Zero">Zero</option>
+          <option value="Premier">Premier</option>
         </select>
       </div>
     </div>
@@ -77,6 +78,7 @@ const artmsArtists = [...artmsMembers, ...artmsSubunits];
           <option value="Binary01">Binary01</option>
           <option value="Cream01">Cream01</option>
           <option value="Divine01">Divine01</option>
+          <option value="Ever01">Ever01</option>
         </select>
       </div>
     </div>
