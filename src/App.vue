@@ -3,10 +3,10 @@ import ObjektDisplay from './components/ObjektDisplay.vue';
 import { ref } from "vue";
 import FilterBar from "./components/FilterBar.vue";
 
-const objektClass = ref<string | null>(null);
-const objektSeason = ref<string | null>(null);
-const group = ref<string | null>(null);
-const artist = ref<string | null>(null);
+const objektClass = ref<string | undefined>(undefined);
+const objektSeason = ref<string | undefined>(undefined);
+const group = ref<string | undefined>(undefined);
+const artist = ref<string | undefined>(undefined);
 </script>
 
 <template>
