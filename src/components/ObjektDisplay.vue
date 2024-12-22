@@ -75,7 +75,7 @@
 
 @media (max-width : 860px) {
     .container{
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
