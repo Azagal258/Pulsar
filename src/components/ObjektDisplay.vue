@@ -48,6 +48,7 @@ const fetchImages = async (offset: number) => {
 };
 
 const init = async () => {
+  offset.value = 0;
   const data = await fetchImages(offset.value);
   imageList.value = data;
 };
