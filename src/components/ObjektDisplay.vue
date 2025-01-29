@@ -71,6 +71,9 @@
                     v-model="selectedList"
                 />
             </div>
+            <div class="display-details">
+                {{ singleObjekt.id }}
+            </div>
         </div>
     </div>
 </template>
@@ -112,4 +115,7 @@ body {
     position: relative;
 }
 
+.display-details {
+    text-align: center;
+}
 </style>
