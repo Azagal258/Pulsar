@@ -7,7 +7,8 @@
         objektArtist : String
     });
     
-    const imageList = ref<any[]>([]);
+    const objektsList = ref<any[]>([]);
+    const selectedList = ref<any[]>([]);
     
     const recalculateImageList = async() => {
         const queryFilters = {
@@ -41,7 +42,7 @@
         });
 
         const parsedData = await response.json();
-        imageList.value = parsedData.data.collections;
+        objektsList.value = parsedData.data.collections;
     }
 
     recalculateImageList();
@@ -53,29 +54,36 @@
 </script>
 
 <template>
-    <div id="title">
-        <h2>First objekts query</h2>
+    <div id="objekt-list">
+        <p>Selected Objekts list :</p>
+        <ul>
+            <li v-for="objekt in selectedList" :key="objekt.id">{{ objekt.id }}</li>
+        </ul>
     </div>
     <div class="container">
-        <div v-for="singleImage in imageList">
+        <div v-for="singleObjekt in objektsList">
             <div class="image-wrapper">
-                <img :src="singleImage.front" :alt="singleImage.id" class="image"/>
-                <input type="checkbox" class="buttontest"/>
+                <img :src="singleObjekt.front" :alt="singleObjekt.id" class="image"/>
+                <input 
+                    type="checkbox" 
+                    class="buttontest"
+                    :value="singleObjekt"
+                    v-model="selectedList"
+                />
             </div>
         </div>
     </div>
 </template>
 
 <style scoped>
-.container{
+.container {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     gap: 1rem;
 }
 
-#title{
+#objekt-list {
     margin-bottom: 1rem;
-    text-align: center;
 }
 
 @media (max-width : 860px) {
@@ -94,14 +102,6 @@ body {
   left: 10px;
 }
 
-.image-wrapper .buttontest:hover {
-    color: red;
-}
-
-.image-wrapper .buttontest:active {
-    color: green;
-}
-
 .image {
     display: block;
     width: 100%;
@@ -111,6 +111,5 @@ body {
     display: inline-block;
     position: relative;
 }
-
 
 </style>
