@@ -1,5 +1,6 @@
 <script setup lang="ts">
-    import { ref, watch } from "vue"
+    import { ref, watch } from "vue";
+    import { BlobReader, BlobWriter, ZipWriter } from "@zip.js/zip.js";
     const props = defineProps({
         objektClass : String,
         objektSeason : String,
@@ -9,7 +10,7 @@
     
     const objektsList = ref<any[]>([]);
     const selectedList = ref<any[]>([]);
-    
+
     const recalculateImageList = async() => {
         const queryFilters = {
             class_eq: props.objektClass,
@@ -43,6 +44,31 @@
 
         const parsedData = await response.json();
         objektsList.value = parsedData.data.collections;
+        for (const unit of objektsList.value) {
+            unit['front2x'] = unit.front.replace(/\/[^/]+$/, "/2x")
+        }
+    }
+
+    const downloadImagesasZip = async() => {
+        const zipMaker = new ZipWriter(new BlobWriter('application/zip'));
+
+        for (const item of selectedList.value) {
+            const response = await fetch(item.front);
+            const blob = await response.blob();
+            await zipMaker.add(`${item.id}.png`, new BlobReader(blob));
+        }
+
+        const zipFinal = await zipMaker.close();
+        const zipURL = URL.createObjectURL(zipFinal);
+
+        const anchorPoint = document.createElement("a");
+        anchorPoint.href = zipURL;
+        anchorPoint.download = `objekts.zip`;
+        document.body.appendChild(anchorPoint);
+        anchorPoint.click();
+        document.body.removeChild(anchorPoint);
+        URL.revokeObjectURL(zipURL);
+
     }
 
     recalculateImageList();
@@ -54,6 +80,13 @@
 </script>
 
 <template>
+    <div id="download-button">
+        <input 
+            type="button"
+            value="Download"
+            @click="downloadImagesasZip"
+        />
+    </div>
     <div id="objekt-list">
         <p>Selected Objekts list :</p>
         <ul>
@@ -63,7 +96,11 @@
     <div class="container">
         <div v-for="singleObjekt in objektsList">
             <div class="image-wrapper">
-                <img :src="singleObjekt.front" :alt="singleObjekt.id" class="image"/>
+                <img
+                    class="image" 
+                    :src="singleObjekt.front2x" 
+                    :alt="singleObjekt.id" 
+                />
                 <input 
                     type="checkbox" 
                     class="buttontest"
