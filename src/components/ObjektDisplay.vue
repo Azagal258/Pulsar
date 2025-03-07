@@ -45,11 +45,12 @@
         const parsedData = await response.json();
         objektsList.value = parsedData.data.collections;
         for (const unit of objektsList.value) {
-            unit['front2x'] = unit.front.replace(/\/[^/]+$/, "/2x")
+            //replaces the final part of the URL with "2x" (lower res image)
+            unit.front2x = unit.front.replace(/\/[^/]+$/, "/2x")
         }
     }
 
-    const downloadImagesasZip = async() => {
+    const downloadImagesAsZip = async() => {
         const zipMaker = new ZipWriter(new BlobWriter('application/zip'));
 
         for (const item of selectedList.value) {
@@ -84,7 +85,7 @@
         <input 
             type="button"
             value="Download"
-            @click="downloadImagesasZip"
+            @click="downloadImagesAsZip"
         />
     </div>
     <div id="objekt-list">
@@ -103,7 +104,7 @@
                 />
                 <input 
                     type="checkbox" 
-                    class="buttontest"
+                    class="button"
                     :value="singleObjekt"
                     v-model="selectedList"
                 />
@@ -136,7 +137,7 @@ body {
   padding: 1rem;
 }
 
-.image-wrapper .buttontest {
+.image-wrapper .button {
   position: absolute;
   top: 10px;
   left: 10px;
