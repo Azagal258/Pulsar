@@ -1,6 +1,8 @@
 <script setup lang="ts">
     import { ref, watch } from "vue";
     import { BlobReader, BlobWriter, ZipWriter } from "@zip.js/zip.js";
+    import type { Objekts } from "../types/objekts";
+    
     const props = defineProps({
         objektClass : String,
         objektSeason : String,
@@ -8,8 +10,8 @@
         objektArtist : String
     });
     
-    const objektsList = ref<any[]>([]);
-    const selectedList = ref<any[]>([]);
+    const objektsList = ref<Objekts>([]);
+    const selectedList = ref<Objekts>([]);
 
     const recalculateImageList = async() => {
         const queryFilters = {
