@@ -40,10 +40,9 @@
             body: JSON.stringify({
                 query: objektsQuery,
             })
-        });
+        }).then(response => response.json());
 
-        const parsedData = await response.json();
-        objektsList.value = parsedData.data.collections;
+        objektsList.value = response.data.collections;
         for (const unit of objektsList.value) {
             //replaces the final part of the URL with "2x" (lower res image)
             unit.front2x = unit.front.replace(/\/[^/]+$/, "/2x")
@@ -54,8 +53,7 @@
         const zipMaker = new ZipWriter(new BlobWriter('application/zip'));
 
         for (const item of selectedList.value) {
-            const response = await fetch(item.front);
-            const blob = await response.blob();
+            const blob = await fetch(item.front).then(response => response.blob());
             await zipMaker.add(`${item.id}.png`, new BlobReader(blob));
         }
 
