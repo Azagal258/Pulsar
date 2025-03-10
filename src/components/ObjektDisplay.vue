@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-    import { ref, watch } from "vue";
+    import { ref, watch, onMounted, onUnmounted } from "vue";
     import { BlobReader, BlobWriter, ZipWriter } from "@zip.js/zip.js";
     import type { Objekts } from "../types/objekts";
     
@@ -26,7 +26,9 @@
         };
 
         const whereClause = Object.entries(queryFilters)
+            //remove filters set to "All"
             .filter(([_, value]) => value)
+            //iterates over the array and format the filters 
             .map(([key, value]) => `${key}: "${value}"`)
             .join(", ");
         
@@ -48,24 +50,43 @@
             })
         }).then(response => response.json());
 
-        objektsList.value = response.data.collections;
-        for (const unit of objektsList.value) {
-            //replaces the final part of the URL with "2x" (lower res image)
-            unit.front2x = unit.front.replace(/\/[^/]+$/, "/2x")
-        }
+        return response.data.collections.map(unit => ({
+            // reuses the previous data
+            ...unit,
+            // adds new line
+            front2x: unit.front.replace(/\/[^/]+$/, "/2x")
+        }));
     }
     
     const init = async () => {
         offset.value = 0;
-        const data = await fetchImages(offset.value);
-        imageList.value = data;
+        objektsList.value = await fetchImages(offset.value);
     };
 
     const loadNextPage = async () => {
         offset.value += pageSize;
-        const data = await fetchImages(offset.value);
-        imageList.value = [...imageList.value, ...data];
+        const newData = await fetchImages(offset.value);
+        objektsList.value = [...objektsList.value, ...newData];
     };
+
+    const handleScroll = () => {
+        if (
+            // If scrolled down a certain amount
+            window.innerHeight + window.scrollY >= document.body.offsetHeight - 300 &&
+            // Don't fire if it is empty / initializing
+            objektsList.value.length
+        ) {
+            loadNextPage();
+        }
+    };
+
+    onMounted(() => {
+        window.addEventListener("scroll", handleScroll);
+    });
+
+    onUnmounted(() => {
+        window.removeEventListener("scroll", handleScroll);
+    });
 
     const downloadImagesAsZip = async() => {
         const zipMaker = new ZipWriter(new BlobWriter('application/zip'));
@@ -87,20 +108,9 @@
         URL.revokeObjectURL(zipURL);
     }
 
+watch(props, init);
 init();
 
-watch(props, init);
-
-onscroll = () => {
-  if (
-    // If scrolled down a certain amount
-    window.innerHeight + window.scrollY >= document.body.offsetHeight &&
-    // Don't fire if it is empty / initializing
-    imageList.value.length
-  ) {
-    loadNextPage();
-  }
-};
 </script>
 
 <template>
