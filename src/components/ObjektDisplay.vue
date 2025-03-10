@@ -1,4 +1,5 @@
 <script setup lang="ts">
+
     import { ref, watch } from "vue";
     import { BlobReader, BlobWriter, ZipWriter } from "@zip.js/zip.js";
     import type { Objekts } from "../types/objekts";
@@ -12,8 +13,11 @@
     
     const objektsList = ref<Objekts>([]);
     const selectedList = ref<Objekts>([]);
+    
+    const pageSize = 15;
+    const offset = ref(0);
 
-    const recalculateImageList = async() => {
+    const fetchImages = async (offset: number) => {
         const queryFilters = {
             class_eq: props.objektClass,
             season_eq: props.objektSeason,
@@ -28,7 +32,7 @@
         
         const objektsQuery = `
             query MyQuery {
-                collections(where: { ${whereClause} } , limit: 15, orderBy: timestamp_DESC) {
+                collections(where: { ${whereClause} }, offset: ${offset}, limit: ${pageSize}, orderBy: timestamp_DESC) {
                     id
                     front
                 }
@@ -50,6 +54,18 @@
             unit.front2x = unit.front.replace(/\/[^/]+$/, "/2x")
         }
     }
+    
+    const init = async () => {
+        offset.value = 0;
+        const data = await fetchImages(offset.value);
+        imageList.value = data;
+    };
+
+    const loadNextPage = async () => {
+        offset.value += pageSize;
+        const data = await fetchImages(offset.value);
+        imageList.value = [...imageList.value, ...data];
+    };
 
     const downloadImagesAsZip = async() => {
         const zipMaker = new ZipWriter(new BlobWriter('application/zip'));
@@ -69,18 +85,26 @@
         anchorPoint.click();
         document.body.removeChild(anchorPoint);
         URL.revokeObjectURL(zipURL);
-
     }
 
-    recalculateImageList();
+init();
 
-    watch(
-        props, recalculateImageList
-    );
+watch(props, init);
 
+onscroll = () => {
+  if (
+    // If scrolled down a certain amount
+    window.innerHeight + window.scrollY >= document.body.offsetHeight &&
+    // Don't fire if it is empty / initializing
+    imageList.value.length
+  ) {
+    loadNextPage();
+  }
+};
 </script>
 
 <template>
+
     <div id="download-button">
         <input 
             type="button"
@@ -101,6 +125,7 @@
                     class="image" 
                     :src="singleObjekt.front2x" 
                     :alt="singleObjekt.id" 
+                    width="100%"
                 />
                 <input 
                     type="checkbox" 
@@ -129,7 +154,7 @@
 
 @media (max-width : 860px) {
     .container{
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 

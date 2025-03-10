@@ -1,13 +1,13 @@
 <script setup lang="ts">
 
-const objektClass = defineModel<string | null>("objektClass", {
+const objektClass = defineModel<string | undefined>("objektClass", {
   required: true,
 });
-const objektSeason = defineModel<string | null>("objektSeason", {
+const objektSeason = defineModel<string | undefined>("objektSeason", {
   required: true,
 });
-const group = defineModel<string | null>("group", { required: true });
-const artist = defineModel<string | null>("artist", { required: true });
+const group = defineModel<string | undefined>("group", { required: true });
+const artist = defineModel<string | undefined>("artist", { required: true });
 
 const tripleSMembers = [
   "SeoYeon",
@@ -59,12 +59,13 @@ const artmsArtists = [...artmsMembers, ...artmsSubunits];
       <div class="fieldset">
         <label for="objektClass">Class</label>
         <select id="objektClass" v-model="objektClass">
-          <option :value="null">All</option>
+          <option :value="undefined">All</option>
           <option value="First">First</option>
           <option value="Special">Special</option>
           <option value="Welcome">Welcome</option>
           <option value="Double">Double</option>
           <option value="Zero">Zero</option>
+          <option value="Premier">Premier</option>
         </select>
       </div>
     </div>
@@ -72,19 +73,20 @@ const artmsArtists = [...artmsMembers, ...artmsSubunits];
       <div class="fieldset">
         <label for="objektSeason">Season</label>
         <select id="objektSeason" v-model="objektSeason">
-          <option :value="null">All</option>
+          <option :value="undefined">All</option>
           <option value="Atom01">Atom01</option>
           <option value="Binary01">Binary01</option>
           <option value="Cream01">Cream01</option>
           <option value="Divine01">Divine01</option>
+          <option value="Ever01">Ever01</option>
         </select>
       </div>
     </div>
     <div class="col">
       <div class="fieldset">
         <label for="group">Group</label>
-        <select id="group" v-model="group" @change="artist = null">
-          <option :value="null">All</option>
+        <select id="group" v-model="group" @change="artist = undefined">
+          <option :value="undefined">All</option>
           <option value="artms">ARTMS</option>
           <option value="tripleS">tripleS</option>
         </select>
@@ -92,15 +94,15 @@ const artmsArtists = [...artmsMembers, ...artmsSubunits];
     </div>
     <div class="col">
       <div class="fieldset">
-        <label id="artist" v-if="group != null" for="artist">Artist</label>
+        <label id="artist" v-if="group != undefined" for="artist">Artist</label>
         <select id="artist" v-if="group === 'artms'" v-model="artist">
-          <option :value="null">All</option>
+          <option :value="undefined">All</option>
           <option v-for="artist in artmsArtists" :key="artist" :value="artist">
             {{ artist }}
           </option>
         </select>
         <select id="artist" v-if="group === 'tripleS'" v-model="artist">
-          <option :value="null">All</option>
+          <option :value="undefined">All</option>
           <option
             v-for="artist in tripleSArtists"
             :key="artist"
