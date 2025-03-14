@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@zip.js/zip.js": "^2.7.57",
     "vue": "^3.5.12"
   },
   "devDependencies": {
