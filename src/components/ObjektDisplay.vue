@@ -13,9 +13,10 @@
     
     const objektsList = ref<Objekts>([]);
     const selectedList = ref<Objekts>([]);
-    
     const pageSize = 15;
     const offset = ref(0);
+
+    const isFetching = ref(false);
 
     const fetchImages = async (offset: number) => {
         const queryFilters = {
@@ -60,19 +61,24 @@
     
     const init = async () => {
         offset.value = 0;
+        isFetching.value = false;
         objektsList.value = await fetchImages(offset.value);
     };
 
     const loadNextPage = async () => {
+        if (isFetching.value) return;
+        isFetching.value = true;
+
         offset.value += pageSize;
         const newData = await fetchImages(offset.value);
         objektsList.value = [...objektsList.value, ...newData];
+        isFetching.value = false;
     };
 
     const handleScroll = () => {
         if (
             // If scrolled down a certain amount
-            window.innerHeight + window.scrollY >= document.body.offsetHeight - 300 &&
+            window.innerHeight + window.scrollY >= document.body.offsetHeight &&
             // Don't fire if it is empty / initializing
             objektsList.value.length
         ) {
