@@ -120,19 +120,24 @@ init();
 </script>
 
 <template>
-
+    <div id="objekt-list">
+        <p class="list-header">Selected Objekts list :</p>
+        <p v-if="!selectedList">
+            Loading
+        </p>
+        <p v-else-if="!selectedList.length">
+            No objekts currently selected
+        </p>
+        <ul>
+            <li v-for="objekt in selectedList" :key="objekt.id">{{ objekt.id }}</li>
+        </ul>
+    </div>
     <div id="download-button">
         <input 
             type="button"
             value="Download"
             @click="downloadImagesAsZip"
         />
-    </div>
-    <div id="objekt-list">
-        <p>Selected Objekts list :</p>
-        <ul>
-            <li v-for="objekt in selectedList" :key="objekt.id">{{ objekt.id }}</li>
-        </ul>
     </div>
     <div class="container">
         <div v-for="singleObjekt in objektsList">
@@ -165,6 +170,14 @@ init();
 }
 
 #objekt-list {
+    margin-bottom: 1rem;
+}
+
+#objekt-list .list-header {
+    margin-bottom: 0.5rem;
+}
+
+#download-button {
     margin-bottom: 1rem;
 }
 
