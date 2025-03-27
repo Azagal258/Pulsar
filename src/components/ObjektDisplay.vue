@@ -27,7 +27,7 @@
         };
 
         const whereClause = Object.entries(queryFilters)
-            //remove filters set to "All"
+            //remove filters which are set to "All"
             .filter(([_, value]) => value)
             //iterates over the array and format the filters 
             .map(([key, value]) => `${key}: "${value}"`)
@@ -54,7 +54,7 @@
         return response.data.collections.map(unit => ({
             // reuses the previous data
             ...unit,
-            // adds new line
+            // adds new line, replacing whatever at the end with 2x
             front2x: unit.front.replace(/\/[^/]+$/, "/2x")
         }));
     }
@@ -104,7 +104,9 @@
 
         const zipFinal = await zipMaker.close();
         const zipURL = URL.createObjectURL(zipFinal);
-
+        
+        //Creates a block to trigger the download and appends it
+        //in the DOM to make it consistent across browsers
         const anchorPoint = document.createElement("a");
         anchorPoint.href = zipURL;
         anchorPoint.download = `objekts.zip`;
