@@ -186,12 +186,6 @@ init();
     margin-bottom: 1rem;
 }
 
-@media (max-width : 860px) {
-    .container{
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
 body {
   padding: 1rem;
 }
@@ -265,4 +259,17 @@ body {
 .display-details {
     text-align: center;
 }
+
+@media (max-width : 950px) {
+    .container{
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width : 600px) {
+    .container{
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
 </style>

@@ -47,13 +47,13 @@ const artist = ref<string | undefined>(undefined);
   margin: 0 1.5rem
 }
 
-@media (max-width : 860px) {
+@media (max-width : 950px) {
   .container {
-    margin: 0.8rem;
+    margin: 1rem;
   }
 
   .display {
-    margin: 0 0.8rem
+    margin: 0 1rem
   }
 }
 </style>
