@@ -15,8 +15,10 @@
     const selectedList = ref<Objekts>([]);
     const pageSize = 15;
     const offset = ref(0);
-
     const isFetching = ref(false);
+
+    const loadedImages = ref<Record<string, boolean>>({});
+    const removedSkeletons = ref<Record<string, boolean>>({});
 
     const fetchImages = async (offset: number) => {
         const queryFilters = {
@@ -60,9 +62,11 @@
     }
     
     const init = async () => {
+        loadedImages.value = {};
+        removedSkeletons.value = {};
         offset.value = 0;
-        isFetching.value = false;
         objektsList.value = await fetchImages(offset.value);
+        isFetching.value = false;
     };
 
     const loadNextPage = async () => {
@@ -93,6 +97,13 @@
     onUnmounted(() => {
         window.removeEventListener("scroll", handleScroll);
     });
+
+    const transitionSkeleton = (id: string) => {
+        loadedImages.value[id] = true;
+        setTimeout(() => {
+            removedSkeletons.value[id] = true;
+        }, 1000);
+    }
 
     const downloadImagesAsZip = async() => {
         const zipMaker = new ZipWriter(new BlobWriter('application/zip'));
@@ -144,18 +155,25 @@ init();
     <div class="container">
         <div v-for="singleObjekt in objektsList">
             <div class="image-wrapper">
+                <div 
+                    v-if="!removedSkeletons[singleObjekt.id]" 
+                    class="skeleton" 
+                    :class="{ 'fade-out' : loadedImages[singleObjekt.id]}">
+                </div>
                 <img
-                    class="image" 
+                    class="image"
+                    width="100%"
                     :src="singleObjekt.front2x" 
                     :alt="singleObjekt.id" 
-                    width="100%"
+                    :class="{ loaded: loadedImages[singleObjekt.id] }" 
+                    @load="transitionSkeleton(singleObjekt.id)"
                 />
                 <label class="button-wrapper">
                     <input 
-                    type="checkbox"
-                    class="button"
-                    :value="singleObjekt"
-                    v-model="selectedList"
+                        type="checkbox"
+                        class="button"
+                        :value="singleObjekt"
+                        v-model="selectedList"
                     />
                     <span class="checkmark"></span>
                 </label>
@@ -172,6 +190,44 @@ init();
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     gap: 1rem;
+}
+
+.image-wrapper .skeleton {
+    position: absolute;
+    width: 100%;
+    aspect-ratio: 1083/1674;
+    background: linear-gradient(90deg, #eeeeee60 25%, #dddddd60 50%, #eeeeee60 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite linear;
+    top: 0;
+    left: 0;
+    border-radius: 5% / 3.5%;
+    transition: opacity 0.7s ease-in-out;
+}
+
+@keyframes loading {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+.image-wrapper .skeleton.fade-out {
+    opacity: 0;
+    transition: opacity 0.7s ease-in-out;
+}
+
+.image-wrapper {
+    width: 100%;
+    aspect-ratio: 1083/1674 ;
+}
+
+.image-wrapper .image {
+    position: absolute;
+    opacity: 0;
+    transition: opacity .3s ease-in-out;
+}
+
+.image-wrapper .image.loaded {
+    opacity: 1;
 }
 
 #objekt-list {
@@ -217,7 +273,7 @@ body {
 }
 
 .button-wrapper .checkmark:hover{
-    background-color: rgb(80, 80, 80);
+    background-color: rgb(60, 60, 60);
 }
 
 .button-wrapper input:checked~ .checkmark{
@@ -236,10 +292,10 @@ body {
 }
 
 .button-wrapper .checkmark::after{
-    left: 31%;
-    top: 15%;
-    width: 3px;
-    height: 7px;
+    left: 4px;
+    top: 0;
+    width: 5px;
+    height: 10px;
     border: solid white;
     border-radius: 2px;
     border-width: 0 2px 2px 0;
