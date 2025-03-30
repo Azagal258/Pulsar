@@ -12,6 +12,12 @@ select {
 }
 
 :root {
+  --bg-color: #242424;
+  --text-color: white;
   color-scheme: light dark;
-  background-color: #242424;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
 }
