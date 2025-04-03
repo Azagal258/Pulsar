@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import ObjektDisplay from './components/ObjektDisplay.vue';
 import { ref } from "vue";
+import ObjektDisplay from './components/ObjektDisplay.vue';
 import FilterBar from "./components/FilterBar.vue";
+import SelectionWindow from "./components/SelectionWindow.vue";
 
 const objektClass = ref<string | undefined>(undefined);
 const objektSeason = ref<string | undefined>(undefined);
@@ -17,13 +18,6 @@ const artist = ref<string | undefined>(undefined);
       v-model:group="group"
       v-model:artist="artist"
     />
-
-    <!-- <div>
-      <div>Class: {{ objektClass }}</div>
-      <div>Season :{{ objektSeason }}</div>
-      <div>Group: {{ group }}</div>
-      <div>Artist: {{ artist }}</div>
-    </div> -->
   </div>
   <div class="display">
     <Suspense>
@@ -33,8 +27,10 @@ const artist = ref<string | undefined>(undefined);
         :objekt-group= "group"
         :objekt-artist= "artist"
       />
-
     </Suspense>
+  </div>
+  <div class="selection">
+    <SelectionWindow></SelectionWindow>
   </div>
 </template>
 
