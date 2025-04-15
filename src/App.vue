@@ -32,7 +32,9 @@ const selectedList = ref<Objekts>([]);
       />
     </Suspense>
     <div id="selection-window">
-      <SelectionWindow/>
+      <SelectionWindow
+      v-model:selected-list="selectedList"
+      />
     </div>
   </div>
 </template>
