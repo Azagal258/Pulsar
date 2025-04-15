@@ -11,7 +11,7 @@ const artist = ref<string | undefined>(undefined);
 </script>
 
 <template>
-  <div class="container">
+  <div id="filters">
     <FilterBar
       v-model:objekt-class="objektClass"
       v-model:objekt-season="objektSeason"
@@ -19,7 +19,7 @@ const artist = ref<string | undefined>(undefined);
       v-model:artist="artist"
     />
   </div>
-  <div class="display">
+  <div id="display">
     <Suspense>
       <ObjektDisplay 
         :objekt-class= "objektClass"
@@ -28,29 +28,39 @@ const artist = ref<string | undefined>(undefined);
         :objekt-artist= "artist"
       />
     </Suspense>
+    <div id="selection-window">
+      <SelectionWindow/>
+    </div>
   </div>
-  <SelectionWindow/>
 </template>
 
 <style scoped>
-.selection {
-  z-index: 10;
-}
 
-.container {
+#filters {
   margin: 1.5rem;
 }
 
-.display {
+#display {
   margin: 0 1.5rem
 }
 
+#selection-window {
+  z-index: 1;
+  position: fixed;
+  bottom: 10px;
+  max-width: 32rem;
+  left: 1rem;
+  right: 1rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 @media (max-width : 950px) {
-  .container {
+  #filters {
     margin: 1rem;
   }
 
-  .display {
+  #display {
     margin: 0 1rem
   }
 }

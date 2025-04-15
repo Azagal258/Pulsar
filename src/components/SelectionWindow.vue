@@ -2,11 +2,15 @@
 </script>
 <template>
     <div id="modal-window-attempt">
-        <p>I'm trying to display something in here</p>
+        I'm trying to display something in here
     </div>
 </template>
 <style scoped>
+
 #modal-window-attempt {
-    outline-color: green;
+    position: relative;
+    border: 5px solid green;
+    background-color: #242424;
+    padding: 5px;
 }
 </style>
