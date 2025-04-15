@@ -128,7 +128,7 @@
         URL.revokeObjectURL(zipURL);
     }
 
-watch(props, init);
+watch(() => [props.objektClass, props.objektSeason, props.objektGroup, props.objektArtist], init);
 init();
 
 </script>
