@@ -3,11 +3,13 @@ import { ref } from "vue";
 import ObjektDisplay from './components/ObjektDisplay.vue';
 import FilterBar from "./components/FilterBar.vue";
 import SelectionWindow from "./components/SelectionWindow.vue";
+import type { Objekts } from "./types/objekts"; 
 
 const objektClass = ref<string | undefined>(undefined);
 const objektSeason = ref<string | undefined>(undefined);
 const group = ref<string | undefined>(undefined);
 const artist = ref<string | undefined>(undefined);
+const selectedList = ref<Objekts>([]);
 </script>
 
 <template>
@@ -22,6 +24,7 @@ const artist = ref<string | undefined>(undefined);
   <div id="display">
     <Suspense>
       <ObjektDisplay 
+        v-model:selected-list="selectedList"
         :objekt-class= "objektClass"
         :objekt-season= "objektSeason"
         :objekt-group= "group"

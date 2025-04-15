@@ -11,8 +11,9 @@
         objektArtist : String
     });
     
+    const selectedList = defineModel<Objekts>("selectedList", {required: true});
+
     const objektsList = ref<Objekts>([]);
-    const selectedList = ref<Objekts>([]);
     const pageSize = 15;
     const offset = ref(0);
     const isFetching = ref(false);
