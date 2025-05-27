@@ -1,58 +1,71 @@
 <script setup lang="ts">
-import ObjektDisplay from './components/ObjektDisplay.vue';
 import { ref } from "vue";
+import ObjektDisplay from './components/ObjektDisplay.vue';
 import FilterBar from "./components/FilterBar.vue";
+import SelectionWindow from "./components/SelectionWindow.vue";
+import type { Objekts } from "./types/objekts"; 
 
 const objektClass = ref<string | undefined>(undefined);
 const objektSeason = ref<string | undefined>(undefined);
 const group = ref<string | undefined>(undefined);
 const artist = ref<string | undefined>(undefined);
+const selectedList = ref<Objekts>([]);
 </script>
 
 <template>
-  <div class="container">
+  <div id="filters">
     <FilterBar
       v-model:objekt-class="objektClass"
       v-model:objekt-season="objektSeason"
       v-model:group="group"
       v-model:artist="artist"
     />
-
-    <!-- <div>
-      <div>Class: {{ objektClass }}</div>
-      <div>Season :{{ objektSeason }}</div>
-      <div>Group: {{ group }}</div>
-      <div>Artist: {{ artist }}</div>
-    </div> -->
   </div>
-  <div class="display">
+  <div id="display">
     <Suspense>
       <ObjektDisplay 
+        v-model:selected-list="selectedList"
         :objekt-class= "objektClass"
         :objekt-season= "objektSeason"
         :objekt-group= "group"
         :objekt-artist= "artist"
       />
-
     </Suspense>
+    <div id="selection-window">
+      <SelectionWindow
+      v-model:selected-list="selectedList"
+      />
+    </div>
   </div>
 </template>
 
 <style scoped>
-.container {
+
+#filters {
   margin: 1.5rem;
 }
 
-.display {
+#display {
   margin: 0 1.5rem
 }
 
+#selection-window {
+  z-index: 1;
+  position: fixed;
+  bottom: 10px;
+  max-width: 32rem;
+  left: 1rem;
+  right: 1rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 @media (max-width : 950px) {
-  .container {
+  #filters {
     margin: 1rem;
   }
 
-  .display {
+  #display {
     margin: 0 1rem
   }
 }

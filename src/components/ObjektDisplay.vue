@@ -1,7 +1,6 @@
 <script setup lang="ts">
 
     import { ref, watch, onMounted, onUnmounted } from "vue";
-    import { BlobReader, BlobWriter, ZipWriter } from "@zip.js/zip.js";
     import type { Objekts } from "../types/objekts";
     
     const props = defineProps({
@@ -11,8 +10,9 @@
         objektArtist : String
     });
     
+    const selectedList = defineModel<Objekts>("selectedList", {required: true});
+
     const objektsList = ref<Objekts>([]);
-    const selectedList = ref<Objekts>([]);
     const pageSize = 15;
     const offset = ref(0);
     const isFetching = ref(false);
@@ -105,53 +105,12 @@
         }, 1000);
     }
 
-    const downloadImagesAsZip = async() => {
-        const zipMaker = new ZipWriter(new BlobWriter('application/zip'));
-
-        for (const item of selectedList.value) {
-            const blob = await fetch(item.front).then(response => response.blob());
-            await zipMaker.add(`${item.id}.png`, new BlobReader(blob));
-        }
-
-        const zipFinal = await zipMaker.close();
-        const zipURL = URL.createObjectURL(zipFinal);
-        
-        //Creates a block to trigger the download and appends it
-        //in the DOM to make it consistent across browsers
-        const anchorPoint = document.createElement("a");
-        anchorPoint.href = zipURL;
-        anchorPoint.download = `objekts.zip`;
-        document.body.appendChild(anchorPoint);
-        anchorPoint.click();
-        document.body.removeChild(anchorPoint);
-        URL.revokeObjectURL(zipURL);
-    }
-
-watch(props, init);
+watch(() => [props.objektClass, props.objektSeason, props.objektGroup, props.objektArtist], init);
 init();
 
 </script>
 
 <template>
-    <div id="objekt-list">
-        <p class="list-header">Selected Objekts:</p>
-        <p v-if="!selectedList">
-            Loading
-        </p>
-        <p v-else-if="!selectedList.length">
-            No objekts currently selected
-        </p>
-        <ul>
-            <li v-for="objekt in selectedList" :key="objekt.id">{{ objekt.id }}</li>
-        </ul>
-    </div>
-    <div id="download-button">
-        <input 
-            type="button"
-            value="Download"
-            @click="downloadImagesAsZip"
-        />
-    </div>
     <div class="container">
         <div v-for="singleObjekt in objektsList">
             <div class="image-wrapper">
