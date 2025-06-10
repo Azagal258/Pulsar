@@ -66,6 +66,7 @@ const artmsArtists = [...artmsMembers, ...artmsSubunits];
           <option value="Double">Double</option>
           <option value="Zero">Zero</option>
           <option value="Premier">Premier</option>
+          <option value="Event">Event (idntt)</option>
         </select>
       </div>
     </div>
@@ -79,6 +80,8 @@ const artmsArtists = [...artmsMembers, ...artmsSubunits];
           <option value="Cream01">Cream01</option>
           <option value="Divine01">Divine01</option>
           <option value="Ever01">Ever01</option>
+          <option value="Atom02">Atom02</option>
+          <option value="Spring25">Spring25 (idntt)</option>
         </select>
       </div>
     </div>
@@ -88,7 +91,8 @@ const artmsArtists = [...artmsMembers, ...artmsSubunits];
         <select id="group" v-model="group" @change="artist = undefined">
           <option :value="undefined">All</option>
           <option value="artms">ARTMS</option>
-          <option value="tripleS">tripleS</option>
+          <option value="triples">tripleS</option>
+          <option value="idntt">idntt</option>
         </select>
       </div>
     </div>
@@ -101,7 +105,7 @@ const artmsArtists = [...artmsMembers, ...artmsSubunits];
             {{ artist }}
           </option>
         </select>
-        <select id="artist" v-if="group === 'tripleS'" v-model="artist">
+        <select id="artist" v-if="group === 'triples'" v-model="artist">
           <option :value="undefined">All</option>
           <option
             v-for="artist in tripleSArtists"
@@ -110,6 +114,9 @@ const artmsArtists = [...artmsMembers, ...artmsSubunits];
           >
             {{ artist }}
           </option>
+        </select>
+        <select id="artist" v-if="group === 'idntt'" v-model="artist">
+          <option :value="undefined">All</option>
         </select>
       </div>
     </div>

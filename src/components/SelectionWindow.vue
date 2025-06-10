@@ -8,8 +8,8 @@ const downloadImagesAsZip = async() => {
         const zipMaker = new ZipWriter(new BlobWriter('application/zip'));
 
         for (const item of selectedList.value) {
-            const blob = await fetch(item.front).then(response => response.blob());
-            await zipMaker.add(`${item.id}.png`, new BlobReader(blob));
+            const blob = await fetch(item.frontImage).then(response => response.blob());
+            await zipMaker.add(`${item.slug}.png`, new BlobReader(blob));
         }
 
         const zipFinal = await zipMaker.close();
@@ -38,7 +38,7 @@ const downloadImagesAsZip = async() => {
                 No objekts currently selected
             </p>
             <ul>
-                <div class="selected-objekt-line" v-for="objekt in selectedList" :key="objekt.id">
+                <div class="selected-objekt-line" v-for="objekt in selectedList" :key="objekt.slug">
                     <label class="button-wrapper">
                     <input 
                         type="checkbox"
@@ -48,7 +48,7 @@ const downloadImagesAsZip = async() => {
                     />
                     <span class="checkmark"></span>
                 </label>
-                <span id="objekt-id">{{ objekt.id }}</span>
+                <span id="objekt-id">{{ objekt.slug }}</span>
                 </div>
             </ul>
         </div>

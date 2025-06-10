@@ -1,7 +1,7 @@
 export type Objekts = Root2[];
 
 export interface Root2 {
-    id: string;
-    front: string;
-    front2x?: string
+    slug: string;
+    frontImage: string;
+    frontImage2x?: string
 }

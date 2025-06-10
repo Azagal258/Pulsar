@@ -24,7 +24,7 @@
         const queryFilters = {
             class_eq: props.objektClass,
             season_eq: props.objektSeason,
-            artists_containsAll: props.objektGroup,
+            artist_contains: props.objektGroup,
             member_eq: props.objektArtist
         };
 
@@ -37,13 +37,13 @@
         
         const objektsQuery = `
             query MyQuery {
-                collections(where: { ${whereClause} }, offset: ${offset}, limit: ${pageSize}, orderBy: timestamp_DESC) {
-                    id
-                    front
+                collections(where: { ${whereClause} }, offset: ${offset}, limit: ${pageSize}, orderBy: createdAt_DESC) {
+                    slug
+                    frontImage
                 }
             }`;
 
-        const response = await fetch("https://cosmo-api.gillespie.eu/graphql", {
+        const response = await fetch("https://api.pulsar.azagal.eu/graphql", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -57,7 +57,7 @@
             // reuses the previous data
             ...unit,
             // adds new line, replacing whatever at the end with 2x
-            front2x: unit.front.replace(/\/[^/]+$/, "/2x")
+            frontImage2x: unit.frontImage.replace(/\/[^/]+$/, "/2x")
         }));
     }
     
@@ -115,17 +115,17 @@ init();
         <div v-for="singleObjekt in objektsList">
             <div class="image-wrapper">
                 <div 
-                    v-if="!removedSkeletons[singleObjekt.id]" 
+                    v-if="!removedSkeletons[singleObjekt.slug]" 
                     class="skeleton" 
-                    :class="{ 'fade-out' : loadedImages[singleObjekt.id]}">
+                    :class="{ 'fade-out' : loadedImages[singleObjekt.slug]}">
                 </div>
                 <img
                     class="image"
                     width="100%"
-                    :src="singleObjekt.front2x" 
-                    :alt="singleObjekt.id" 
-                    :class="{ loaded: loadedImages[singleObjekt.id] }" 
-                    @load="transitionSkeleton(singleObjekt.id)"
+                    :src="singleObjekt.frontImage2x" 
+                    :alt="singleObjekt.slug" 
+                    :class="{ loaded: loadedImages[singleObjekt.slug] }" 
+                    @load="transitionSkeleton(singleObjekt.slug)"
                 />
                 <label class="button-wrapper">
                     <input 
@@ -138,7 +138,7 @@ init();
                 </label>
             </div>
             <div class="display-details">
-                {{ singleObjekt.id }}
+                {{ singleObjekt.slug }}
             </div>
         </div>
     </div>
