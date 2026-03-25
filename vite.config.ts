@@ -5,4 +5,13 @@ import vue from '@vitejs/plugin-vue'
 export default defineConfig({
   plugins: [vue()],
   build: {outDir : "docs"},
+  server: {
+    proxy: {
+      "/api": {
+        target: "https://apollo.cafe",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, "")
+      }
+    }
+  }
 })

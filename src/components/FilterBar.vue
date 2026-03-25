@@ -51,6 +51,27 @@ const artmsMembers = ["HeeJin", "HaSeul", "KimLip", "JinSoul", "Choerry"];
 const artmsSubunits = ["OEC"];
 
 const artmsArtists = [...artmsMembers, ...artmsSubunits];
+
+const idnttMembers = [
+  "DoHun",
+  "HeeJu",
+  "MinGyeol",
+  "TaeIn",
+  "JaeYoung",
+  "JuHo",
+  "JiWoon",
+  "HwanHee",
+  "CheongMyeong",
+  "Towa",
+  "KyuHyuk",
+  "NuRi",
+  "SeongJun",
+  "YeJoon",
+  "GyeongBeen",
+  "EunSoo",
+]
+
+const idnttArtists = [...idnttMembers]
 </script>
 
 <template>
@@ -117,6 +138,9 @@ const artmsArtists = [...artmsMembers, ...artmsSubunits];
         </select>
         <select id="artist" v-if="group === 'idntt'" v-model="artist">
           <option :value="undefined">All</option>
+          <option v-for="artist in idnttArtists" :key="artist" :value="artist">
+            {{ artist }}
+          </option>
         </select>
       </div>
     </div>
