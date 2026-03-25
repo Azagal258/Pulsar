@@ -4,15 +4,26 @@ import ObjektDisplay from './components/ObjektDisplay.vue';
 import FilterBar from "./components/FilterBar.vue";
 import SelectionWindow from "./components/SelectionWindow.vue";
 import type { Objekts } from "./types/objekts"; 
+import SearchOverlay from "./components/SearchOverlay.vue";
 
 const objektClass = ref<string | undefined>(undefined);
 const objektSeason = ref<string | undefined>(undefined);
 const group = ref<string | undefined>(undefined);
 const artist = ref<string | undefined>(undefined);
 const selectedList = ref<Objekts>([]);
+
+const searchResults = ref<any[]>([])
+
+function updateResults(data: any) {
+  searchResults.value = data
+  console.log(searchResults.value)
+}
 </script>
 
 <template>
+  <div id="search-bar">
+    <SearchOverlay @results="updateResults"/>
+  </div>
   <div id="filters">
     <FilterBar
       v-model:objekt-class="objektClass"
@@ -40,6 +51,13 @@ const selectedList = ref<Objekts>([]);
 </template>
 
 <style scoped>
+
+#search-bar {
+  z-index: 2;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
 
 #filters {
   margin: 1.5rem;

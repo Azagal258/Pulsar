@@ -136,6 +136,9 @@ init();
                     />
                     <span class="checkmark"></span>
                 </label>
+                <div>
+                    
+                </div>
             </div>
             <div class="display-details">
                 {{ singleObjekt.slug }}
