@@ -58,7 +58,7 @@ async function fetchResults(q: string) {
 <template>
   <input
     v-model="query"
-    placeholder="Search..."
+    placeholder="Search a user..."
     class="search-bar"
   />
   <div v-for="user in results.slice(0,3)" :key="user.nickname">
