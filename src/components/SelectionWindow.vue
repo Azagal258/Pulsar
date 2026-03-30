@@ -1,10 +1,25 @@
 <script setup lang="ts">
 import { BlobReader, BlobWriter, ZipWriter } from "@zip.js/zip.js";
 import type { Objekts } from "../types/objekts";
+import { ref } from "vue"
 
 const selectedList = defineModel<Objekts>("selectedList", {required: true});
+const isDownloading = ref(false);
+const toastMessage = ref<string | null>(null);
+
+function showToast(message: string, duration = 3000) {
+    toastMessage.value = message;
+    setTimeout(() => {
+        toastMessage.value = null;
+    }, duration);
+}
 
 const downloadImagesAsZip = async() => {
+    if (!selectedList.value?.length) return;
+
+    isDownloading.value = true;
+
+    try {
         const zipMaker = new ZipWriter(new BlobWriter('application/zip'));
 
         for (const item of selectedList.value) {
@@ -24,14 +39,23 @@ const downloadImagesAsZip = async() => {
         anchorPoint.click();
         document.body.removeChild(anchorPoint);
         URL.revokeObjectURL(zipURL);
-    };
+    } catch (error) {
+        console.error("Download failed", error);
+        showToast("Download failed, please retry later");
+    } finally {
+        isDownloading.value = false;
+    }
+};
 
 </script>
 <template>
     <div id="modal-window-attempt">
+        <div v-if="toastMessage" class="toast">
+            {{ toastMessage }}
+        </div>
         <div id="objekt-list">
             <p class="list-header">Selected Objekts:</p>
-            <p v-if="!selectedList">
+            <p v-if="selectedList === null">
                 Loading
             </p>
             <p v-else-if="!selectedList.length">
@@ -57,11 +81,18 @@ const downloadImagesAsZip = async() => {
                 type="button"
                 value="Download"
                 @click="downloadImagesAsZip"
+                :disabled="isDownloading || !selectedList?.length"
+                :class="{ disabled: selectedList.length === 0}"
             />
+            <span v-if="isDownloading" class="loader"></span>
         </div>
     </div>
 </template>
 <style scoped>
+
+.disabled {
+    cursor: not-allowed;
+}
 
 #modal-window-attempt {
     position: relative;
@@ -146,4 +177,46 @@ const downloadImagesAsZip = async() => {
     transform: rotate(45deg);
 }
 
+.loader {
+  top: 5px;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  background: linear-gradient(0deg, rgba(255, 61, 0, 0.2) 50%, #ff3d00 100%);
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+.loader::after {
+  content: '';  
+  box-sizing: border-box;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #242424;
+}
+
+@keyframes rotation {
+  0% { transform: rotate(0deg) }
+  100% { transform: rotate(360deg)}
+} 
+
+.toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #333;
+    color: white;
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-size: 14px;
+    opacity: 0.95;
+}
 </style>
