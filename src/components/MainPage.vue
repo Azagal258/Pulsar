@@ -41,6 +41,7 @@ function updateResults(data: any) {
         :objekt-season= "objektSeason"
         :objekt-group= "group"
         :objekt-artist= "artist"
+        mode="collections"
       />
     </Suspense>
     <div id="selection-window">

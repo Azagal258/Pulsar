@@ -10,6 +10,7 @@ const emit = defineEmits<{
   (e: "results", data: any): void
 }>()
 
+/* utility functions */
 function getAvatar(user: User) {
   return (
     user.userProfiles?.[0]?.image?.thumbnail || defaultAvatar
@@ -18,7 +19,7 @@ function getAvatar(user: User) {
 
 function getUserPage(user: User) {
   return (
-    `https://example.com/${user.address.toLowerCase()}`
+    `/user/${user.address.toLowerCase()}`
   )
 }
 
@@ -67,7 +68,7 @@ async function fetchResults(q: string) {
        <text>
         {{user.nickname}}
       </text>
-      <a :href="getUserPage(user)" class="fill-div"></a>
+      <RouterLink :to="getUserPage(user)" class="fill-div"/>
     </div>
   </div>
 </template>
@@ -83,7 +84,7 @@ async function fetchResults(q: string) {
   position: relative;
   top: -1px;
   border-radius: 6px;
-  border: 1px solid white;
+  border: 1px solid grey;
   background-color: black;
   height:40px;
 }
@@ -99,16 +100,13 @@ async function fetchResults(q: string) {
   top: 25%;
   bottom: 25%;
   left: 40px;
-  border: 1px solid white
 }
 
-.user-card a.fill-div {
+.user-card .fill-div {
   display: block;
   width: 100%;
   height: 100%;
   text-decoration: none;
-  background-color: blue;
-  opacity: 50%;
   border-radius: 6px;
 }
 </style>

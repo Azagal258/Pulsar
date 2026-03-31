@@ -1,112 +1,144 @@
 <script setup lang="ts">
 
-    import { ref, watch, onMounted, onUnmounted } from "vue";
-    import type { Objekts } from "../types/objekts";
+import { ref, watch, onMounted, onUnmounted } from "vue";
+import type { Objekts } from "../types/objekts";
+
+const props = defineProps<{
+    objektClass?: string
+    objektSeason?: string
+    objektGroup?: string
+    objektArtist?: string
+    mode: "collections" | "user-collections"
+    owner?: string
+}>()
+
+const selectedList = defineModel<Objekts>("selectedList", {required: true});
+
+const objektsList = ref<Objekts>([]);
+const pageSize = 15;
+const offset = ref(0);
+const isFetching = ref(false);
+
+const loadedImages = ref<Record<string, boolean>>({});
+const removedSkeletons = ref<Record<string, boolean>>({});
+
+const fetchImages = async (offset: number) => {
+    console.log("fetch for", props.owner)
+    const queryFilters = {
+        class_eq: props.objektClass,
+        season_eq: props.objektSeason,
+        artist_contains: props.objektGroup,
+        member_eq: props.objektArtist
+    };
+
+    const whereClause = Object.entries(queryFilters)
+        //remove filters which are set to "All"
+        .filter(([_, value]) => value)
+        //iterates over the array and format the filters 
+        .map(([key, value]) => `${key}: "${value}"`)
+        .join(", ");
     
-    const props = defineProps({
-        objektClass : String,
-        objektSeason : String,
-        objektGroup : String,
-        objektArtist : String
-    });
-    
-    const selectedList = defineModel<Objekts>("selectedList", {required: true});
-
-    const objektsList = ref<Objekts>([]);
-    const pageSize = 15;
-    const offset = ref(0);
-    const isFetching = ref(false);
-
-    const loadedImages = ref<Record<string, boolean>>({});
-    const removedSkeletons = ref<Record<string, boolean>>({});
-
-    const fetchImages = async (offset: number) => {
-        const queryFilters = {
-            class_eq: props.objektClass,
-            season_eq: props.objektSeason,
-            artist_contains: props.objektGroup,
-            member_eq: props.objektArtist
-        };
-
-        const whereClause = Object.entries(queryFilters)
-            //remove filters which are set to "All"
-            .filter(([_, value]) => value)
-            //iterates over the array and format the filters 
-            .map(([key, value]) => `${key}: "${value}"`)
-            .join(", ");
-        
-        const objektsQuery = `
-            query MyQuery {
-                collections(where: { ${whereClause} }, offset: ${offset}, limit: ${pageSize}, orderBy: createdAt_DESC) {
+    let objektsQuery : string
+    if (props.owner) {
+        objektsQuery = `
+        query UserQuery {
+            objekts(where: {owner_eq: "${props.owner}", collection: { ${whereClause} }}, offset: ${offset}, limit: ${pageSize}, orderBy: receivedAt_DESC) {
+                collection {
                     slug
                     frontImage
                 }
-            }`;
-
-        const response = await fetch("https://api.pulsar.azagal.eu/graphql", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                query: objektsQuery,
-            })
-        }).then(response => response.json());
-
-        return response.data.collections.map(unit => ({
-            // reuses the previous data
-            ...unit,
-            // adds new line, replacing whatever at the end with 2x
-            frontImage2x: unit.frontImage.replace(/\/[^/]+$/, "/2x")
-        }));
-    }
-    
-    const init = async () => {
-        loadedImages.value = {};
-        removedSkeletons.value = {};
-        offset.value = 0;
-        objektsList.value = await fetchImages(offset.value);
-        isFetching.value = false;
-    };
-
-    const loadNextPage = async () => {
-        if (isFetching.value) return;
-        isFetching.value = true;
-
-        offset.value += pageSize;
-        const newData = await fetchImages(offset.value);
-        objektsList.value = [...objektsList.value, ...newData];
-        isFetching.value = false;
-    };
-
-    const handleScroll = () => {
-        if (
-            // If scrolled down a certain amount
-            window.innerHeight + window.scrollY >= document.body.offsetHeight &&
-            // Don't fire if it is empty / initializing
-            objektsList.value.length
-        ) {
-            loadNextPage();
+            }
         }
-    };
-
-    onMounted(() => {
-        window.addEventListener("scroll", handleScroll);
-    });
-
-    onUnmounted(() => {
-        window.removeEventListener("scroll", handleScroll);
-    });
-
-    const transitionSkeleton = (id: string) => {
-        loadedImages.value[id] = true;
-        setTimeout(() => {
-            removedSkeletons.value[id] = true;
-        }, 1000);
+        `
+    } else {
+        objektsQuery = `
+        query MyQuery {
+            collections(where: { ${whereClause} }, offset: ${offset}, limit: ${pageSize}, orderBy: createdAt_DESC) {
+                slug
+                frontImage
+            }
+        }
+        `
     }
 
-watch(() => [props.objektClass, props.objektSeason, props.objektGroup, props.objektArtist], init);
-init();
+    const response = await fetch("https://api.pulsar.azagal.eu/graphql", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            query: objektsQuery,
+        })
+    }).then(response => response.json());
+
+    const rawList = props.mode === "user-collections"
+        ? response.data.objekts.map(o => o.collection)
+        : response.data.collections
+
+    return rawList.map(unit => ({
+        // reuses the previous data
+        ...unit,
+        // adds new line, replacing whatever at the end with 2x
+        frontImage2x: unit.frontImage.replace(/\/[^/]+$/, "/2x")
+    }));
+}
+
+const init = async () => {
+    loadedImages.value = {};
+    removedSkeletons.value = {};
+    offset.value = 0;
+    objektsList.value = await fetchImages(offset.value);
+    isFetching.value = false;
+};
+
+const loadNextPage = async () => {
+    if (isFetching.value) return;
+    isFetching.value = true;
+
+    offset.value += pageSize;
+    const newData = await fetchImages(offset.value);
+    objektsList.value = [...objektsList.value, ...newData];
+    isFetching.value = false;
+};
+
+const handleScroll = () => {
+    if (
+        // If scrolled down a certain amount
+        window.innerHeight + window.scrollY >= document.body.offsetHeight &&
+        // Don't fire if it is empty / initializing
+        objektsList.value.length
+    ) {
+        loadNextPage();
+    }
+};
+
+onMounted(() => {
+    window.addEventListener("scroll", handleScroll);
+});
+
+onUnmounted(() => {
+    window.removeEventListener("scroll", handleScroll);
+});
+
+const transitionSkeleton = (id: string) => {
+    loadedImages.value[id] = true;
+    setTimeout(() => {
+        removedSkeletons.value[id] = true;
+    }, 1000);
+}
+
+watch(
+    () => ({
+        class: props.objektClass,
+        season: props.objektSeason,
+        group: props.objektGroup,
+        artist: props.objektArtist,
+        owner: props.owner,
+        mode: props.mode
+    }),
+    init,
+    { immediate: true }
+);
 
 </script>
 

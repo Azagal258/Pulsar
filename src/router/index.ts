@@ -2,6 +2,7 @@ import { createWebHistory, createRouter } from 'vue-router'
 
 import MainPage from '../components/MainPage.vue'
 import TestPage from '../components/TestPage.vue'
+import UserPage from '../components/UserPage.vue'
 
 const routes = [
     { path: '/', component: MainPage },
