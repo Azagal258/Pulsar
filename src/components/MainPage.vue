@@ -15,41 +15,41 @@ const selectedList = ref<Objekts>([]);
 const searchResults = ref<any[]>([])
 
 function updateResults(data: any) {
-  searchResults.value = data
-  console.log(searchResults.value)
+    searchResults.value = data
+    console.log(searchResults.value)
 }
 </script>
 
 <template>
-  <RouterLink to="/about">Go to About</RouterLink>
-  <div id="search-bar">
-    <SearchOverlay @results="updateResults"/>
-  </div>
-  <div id="filters">
-    <FilterBar
-      v-model:objekt-class="objektClass"
-      v-model:objekt-season="objektSeason"
-      v-model:group="group"
-      v-model:artist="artist"
-    />
-  </div>
-  <div id="display">
-    <Suspense>
-      <ObjektDisplay 
-        v-model:selected-list="selectedList"
-        :objekt-class= "objektClass"
-        :objekt-season= "objektSeason"
-        :objekt-group= "group"
-        :objekt-artist= "artist"
-        mode="collections"
-      />
-    </Suspense>
-    <div id="selection-window">
-      <SelectionWindow
-      v-model:selected-list="selectedList"
-      />
+    <RouterLink to="/about">Go to About</RouterLink>
+    <div id="search-bar">
+        <SearchOverlay @results="updateResults"/>
     </div>
-  </div>
+    <div id="filters">
+        <FilterBar
+            v-model:objekt-class="objektClass"
+            v-model:objekt-season="objektSeason"
+            v-model:group="group"
+            v-model:artist="artist"
+        />
+    </div>
+    <div id="display">
+        <Suspense>
+            <ObjektDisplay 
+                v-model:selected-list="selectedList"
+                :objekt-class= "objektClass"
+                :objekt-season= "objektSeason"
+                :objekt-group= "group"
+                :objekt-artist= "artist"
+                mode="collections"
+            />
+        </Suspense>
+        <div id="selection-window">
+            <SelectionWindow
+                v-model:selected-list="selectedList"
+            />
+        </div>
+    </div>
 </template>
 
 <style scoped>
