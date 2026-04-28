@@ -11,13 +11,13 @@ const emit = defineEmits<{
     (e: "results", data: any): void
 }>()
 
-/* utility functions */
+// utility functions
 function getAvatar(user: User) {
     return (
         user.userProfiles?.[0]?.image?.thumbnail || defaultAvatar
     )
 }
-
+// pop in the link
 function getUserPage(user: User) {
     return (
         `/user/${user.address.toLowerCase()}`
@@ -64,11 +64,12 @@ async function fetchResults(q: string) {
     />
     <div v-for="user in results.slice(0,3)" :key="user.nickname">
         <div class="user-card">
-            <img :src="getAvatar(user)" width="30px" alt="avatar"/>
-            <text>
-                {{user.nickname}}
-            </text>
-            <RouterLink :to="getUserPage(user)" class="fill-div"/>
+            <RouterLink :to="getUserPage(user)" class="fill-div">
+                <img :src="getAvatar(user)" width="30px" alt="avatar"/>
+                <text>
+                    {{user.nickname}}
+                </text>
+            </RouterLink>
         </div>
     </div>
 </template>

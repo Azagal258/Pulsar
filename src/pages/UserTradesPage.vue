@@ -1,11 +1,9 @@
 <script setup lang="ts">
+import TradeDisplay from "../components/TradeDisplay.vue"
 </script>
 
 <template>
-    <h1>Test of titles</h1>
-    <RouterLink to="/">Go to HomePage</RouterLink>
+    <TradeDisplay />
 </template>
-
 <style scoped>
-
 </style>

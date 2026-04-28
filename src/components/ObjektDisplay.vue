@@ -8,7 +8,7 @@ const props = defineProps<{
     objektSeason?: string
     objektGroup?: string
     objektArtist?: string
-    mode: "collections" | "user-collections"
+    displayMode: "collections" | "user-collections"
     owner?: string
 }>()
 
@@ -23,7 +23,6 @@ const loadedImages = ref<Record<string, boolean>>({});
 const removedSkeletons = ref<Record<string, boolean>>({});
 
 const fetchImages = async (offset: number) => {
-    console.log("fetch for", props.owner)
     const queryFilters = {
         class_eq: props.objektClass,
         season_eq: props.objektSeason,
@@ -71,7 +70,7 @@ const fetchImages = async (offset: number) => {
         })
     }).then(response => response.json());
 
-    const rawList = props.mode === "user-collections"
+    const rawList = props.displayMode === "user-collections"
         ? response.data.objekts.map(o => o.collection)
         : response.data.collections
 
@@ -97,6 +96,7 @@ const loadNextPage = async () => {
 
     offset.value += pageSize;
     const newData = await fetchImages(offset.value);
+    // extend array with new values
     objektsList.value = [...objektsList.value, ...newData];
     isFetching.value = false;
 };
@@ -134,7 +134,7 @@ watch(
         group: props.objektGroup,
         artist: props.objektArtist,
         owner: props.owner,
-        mode: props.mode
+        mode: props.displayMode
     }),
     init,
     { immediate: true }
