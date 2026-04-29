@@ -1,13 +1,15 @@
 <script setup lang="ts">
     defineProps<{
         address: string
+        username?: string
+        profilePicture?: string
     }>()
 </script>
 <template>
     <div id="user-interactions">
         <div id="basic-infos">
-            <img src="../assets/vue.svg" />
-            <span>{{ address }}</span>
+            <img :src="profilePicture" height="80px" />
+            <span>{{ username || address }}</span>
         </div>
         <div id="buttons">
             <RouterLink :to="`/user/${address}`">

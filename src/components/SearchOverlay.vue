@@ -49,7 +49,7 @@ async function fetchResults(q: string) {
         return cache.get(q)
     }
     /* there's a special stuff in the config, the base /api sends to apollo.cafe*/
-    const res = await fetch(`/api/api/bff/v3/users/search?query=${encodeURIComponent(q)}`)
+    const res = await fetch(`/api/user/search?query=${encodeURIComponent(q)}`)
     const data = await res.json()
 
     cache.set(q, data)

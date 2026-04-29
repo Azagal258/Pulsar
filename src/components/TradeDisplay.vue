@@ -2,7 +2,15 @@
 import { Entry, Transfers, TransferRenderer } from '../types/transfer';
 import { ref, watch } from 'vue';
 
-const address = "0xb678c008ced2a73f833d9bc26ca2bff593c1158c";
+const props = defineProps<{
+    objektClass?: string
+    objektSeason?: string
+    objektGroup?: string
+    objektArtist?: string
+    owner: string
+}>()
+
+const address = props.owner;
 const offset = ref(0);
 const transfersList = ref<TransferRenderer>([]);
 
@@ -28,10 +36,23 @@ function getOtherPerson(transfer: Entry, my_address: string): string[] {
 }
 
 const fetchTransfers = async (offset: number): Promise<TransferRenderer> => {
+    const queryFilters = {
+        class_eq: props.objektClass,
+        season_eq: props.objektSeason,
+        artist_contains: props.objektGroup,
+        member_eq: props.objektArtist
+    };
+
+    const whereClause = Object.entries(queryFilters)
+        //remove filters which are set to "All"
+        .filter(([_, value]) => value)
+        //iterates over the array and format the filters 
+        .map(([key, value]) => `${key}: "${value}"`)
+        .join(", ");
 
     let transferQuery = `
     query MyQuery {
-        transfers(where: {from_eq: "${address}", OR: {to_eq: "${address}"}}, offset: ${offset}, orderBy: timestamp_DESC, limit: 100) {
+        transfers(where: {collection: {${whereClause}}, from_eq: "${address}", OR: {collection: {${whereClause}}, to_eq: "${address}"}}, offset: ${offset}, orderBy: timestamp_DESC, limit: 100) {
             from
             to
             timestamp
@@ -75,10 +96,20 @@ const fetchTransfers = async (offset: number): Promise<TransferRenderer> => {
 };
 
 const init = async () => {
-    transfersList.value = await fetchTransfers(offset.value)
+    transfersList.value = await fetchTransfers(offset.value);
 };
 
-watch(offset, init, { immediate: true })
+watch(
+    () => ({
+        class: props.objektClass,
+        season: props.objektSeason,
+        group: props.objektGroup,
+        artist: props.objektArtist,
+        owner: props.owner,
+    }),
+    init,
+    { immediate: true }
+);
 
 </script>
 <template>
@@ -111,7 +142,7 @@ watch(offset, init, { immediate: true })
     --spacing: 0.25rem;
     display: flex;
     flex-direction: column;
-    padding-inline: 5rem;
+    padding-inline: 1rem;
 }
 
 @media (max-width: 750px) {
@@ -122,7 +153,7 @@ watch(offset, init, { immediate: true })
 
 .transfer-line {
     display: grid;
-    height: calc(var(--spacing)*14);
+    height: calc(var(--spacing)*12);
     grid-template-columns: minmax(0, 2fr) minmax(0, 3fr) minmax(0, 1fr);
     align-items: center;
     gap: calc(var(--spacing)*2);
@@ -131,13 +162,16 @@ watch(offset, init, { immediate: true })
     padding-inline: calc(var(--spacing)*4);
 }
 
+.table-header {
+    height: 2rem;
+}
+
 .objekts-infos-wrapper {
     display: flex;
     flex-direction: column;
 }
 
 .trade-with {
-    /* font-family: monospace; */
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
@@ -151,45 +185,4 @@ watch(offset, init, { immediate: true })
 .trade-time {
     text-align: right;
 }
-
-
-/* .container {
-    display: grid;
-    grid-template-columns: .5fr 1fr .5fr;
-    grid-template-rows: repeat(auto-fill, 50px);
-    padding-left: 1rem;
-    padding-right: 1rem;
-    align-items: center;
-}
-
- .transfer-line {
-    border: solid white 1px;
-}
-
-.partner-infos-wrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    margin: 0 auto;
-    min-width: 0;
-}
-
-.trade-with {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    width: 100%;
-    font-family: monospace;
-}
-
-.trade-time {
-    text-align: right;
-}
-
-.objekt-infos-wrapper,
-.trade-time,
-.trade-type {
-    white-space: nowrap;
-} */
 </style>
