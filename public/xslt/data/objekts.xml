@@ -1,0 +1,128 @@
+<objekt>
+    <group name="tripleS">
+        <class name="First">
+            <transferable>true</transferable>
+            <mint>Shop/Spin</mint>
+            <como>1</como>
+            <recurrent>false</recurrent>
+        </class>
+        <class name="Double">
+            <transferable>true</transferable>
+            <mint>Shop/Events</mint>
+            <como>2</como>
+            <recurrent>false</recurrent>
+        </class>
+        <class name="Special">
+            <transferable>true</transferable>
+            <mint>Grids/Albums/Spin</mint>
+            <como>1</como>
+            <recurrent>true</recurrent>
+        </class>
+        <class name="Premier">
+            <transferable>true</transferable>
+            <mint>Reward/Spin</mint>
+            <como>2</como>
+            <recurrent>true</recurrent>
+        </class>
+        <class name="Motion">
+            <transferable>true</transferable>
+            <mint>Shop</mint>
+            <como>3</como>
+            <recurrent>false</recurrent>
+        </class>
+        <class name="Welcome">
+            <transferable>false</transferable>
+            <mint>Joining/Events</mint>
+            <como>1</como>
+            <recurrent>false</recurrent>
+        </class>
+        <class name="Unit">
+            <transferable>true</transferable>
+            <mint>Shop</mint>
+            <como>4</como>
+            <recurrent>false</recurrent>
+        </class>
+        <class name="Zero">
+            <transferable>true</transferable>
+            <mint>Events</mint>
+            <como>1</como>
+            <recurrent>false</recurrent>
+        </class>
+    </group>
+    <group name="ARTMS">
+        <class name="First">
+            <transferable>true</transferable>
+            <mint>Shop/Spin</mint>
+            <como>1</como>
+            <recurrent>false</recurrent>
+        </class>
+        <class name="Double">
+            <transferable>true</transferable>
+            <mint>Shop/Events</mint>
+            <como>2</como>
+            <recurrent>false</recurrent>
+        </class>
+        <class name="Special">
+            <transferable>true</transferable>
+            <mint>Grids/Albums/Spin</mint>
+            <como>1</como>
+            <recurrent>true</recurrent>
+        </class>
+        <class name="Premier">
+            <transferable>true</transferable>
+            <mint>Reward/Spin</mint>
+            <como>2</como>
+            <recurrent>true</recurrent>
+        </class>
+        <class name="Motion">
+            <transferable>true</transferable>
+            <mint>Shop</mint>
+            <como>3</como>
+            <recurrent>false</recurrent>
+        </class>
+        <class name="Welcome">
+            <transferable>false</transferable>
+            <mint>Joining/Events</mint>
+            <como>1</como>
+            <recurrent>false</recurrent>
+        </class>
+    </group>
+    <group name="idntt">
+        <class name="Basic">
+            <transferable>true</transferable>
+            <mint>Shop/Spin</mint>
+            <como>1</como>
+            <recurrent>false</recurrent>
+        </class>
+        <class name="Event">
+            <transferable>true</transferable>
+            <mint>Shop/Albums/Spin</mint>
+            <como>2</como>
+            <recurrent>false</recurrent>
+        </class>
+        <class name="Special">
+            <transferable>true</transferable>
+            <mint>Grids</mint>
+            <como>6</como>
+            <recurrent>false</recurrent>
+        </class>
+        <class name="Motion">
+            <transferable>true</transferable>
+            <mint>Shop</mint>
+            <como>3</como>
+            <recurrent>false</recurrent>
+        </class>
+        <class name="Welcome">
+            <transferable>false</transferable>
+            <mint>Joining/Events</mint>
+            <como>1</como>
+            <recurrent>false</recurrent>
+        </class>
+        <class name="Unit">
+            <transferable>true</transferable>
+            <mint>All STOs from 2 members</mint>
+            <como>12</como>
+            <recurrent>false</recurrent>
+        </class>
+    </group>
+</objekt>
