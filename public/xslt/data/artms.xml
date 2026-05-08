@@ -1,5 +1,5 @@
 <group>
-    <member id="HeeJin" color="#ed008f" contrast="#000000">
+    <member id="HeeJin" color="#ed008f" contrast="#FFFFFF">
         <name>Jeon Hee-jin</name>
         <native lang="ko">전희진</native>
         <number>1</number>
@@ -17,7 +17,7 @@
         <debut>December 8, 2016</debut>
         <color>Emerald</color>
     </member>
-    <member id="Kim Lip" color="#db3647" contrast="#000000">
+    <member id="Kim Lip" color="#db3647" contrast="#FFFFFF">
         <name>Kim Jung-eun</name>
         <native lang="ko">김정은</native>
         <number>3</number>
