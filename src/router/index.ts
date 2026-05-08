@@ -39,12 +39,16 @@ const routes = [
                 path: 'about',
                 component: TestPage
             },
+            {
+                path: '/info/:content',
+                component: ObjektInfo
+            }
         ]
     },
-    {
-        path: '/info/:content',
-        component: ObjektInfo
-    }
+    // {
+    //     path: '/info/:content',
+    //     component: ObjektInfo
+    // }
 ]
 
 export default createRouter({
