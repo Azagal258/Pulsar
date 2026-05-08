@@ -76,7 +76,7 @@ async function fetchResults(q: string) {
 
 <style scoped>
 .search-bar {
-    padding: 6px 10px;
+    padding: .3rem .5rem;
     border-radius: 6px;
     border: 1px solid #ccc;
 }
@@ -87,7 +87,7 @@ async function fetchResults(q: string) {
     border-radius: 6px;
     border: 1px solid grey;
     background-color: black;
-    height:40px;
+    height: 40px;
 }
 
 .user-card img{

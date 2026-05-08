@@ -28,7 +28,7 @@ const artist = ref<string | undefined>(undefined)
 </template>
 <style scoped>
 #filters {
-  margin: 1.5rem;
+  margin: 1rem 1.5rem 1.5rem;
 }
 
 #display {

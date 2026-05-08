@@ -11,9 +11,29 @@ function updateResults(data: any) {
 </script>
 
 <template>
-    <div id="search-bar">
-        <SearchOverlay @results="updateResults" />
-    </div>
+    <nav>
+        <div id="menu">
+            <div id="left-side">
+                <div id="title">
+                    <h1 class="trispace">PULSAR</h1>
+                </div>
+                <div id="buttons">
+                    <RouterLink :to="`/info/objekts`">
+                        <button>Objekts infos</button>
+                    </RouterLink>
+                    <RouterLink :to="`/info/triples`">
+                        <button>tripleS profiles</button>
+                    </RouterLink>
+                    <RouterLink :to="`/info/artms`">
+                        <button>ARTMS profiles</button>
+                    </RouterLink>
+                </div>
+            </div>
+            <div id="search-bar">
+                <SearchOverlay @results="updateResults" />
+            </div>
+        </div>
+    </nav>
     <RouterView v-slot="{ Component }">
         <component 
             :is="Component"
@@ -22,9 +42,40 @@ function updateResults(data: any) {
 </template>
 <style scoped>
 #search-bar {
-  z-index: 2;
-  position: absolute;
-  top: 10px;
-  right: 10px;
+  text-align: right;
+}
+
+nav {
+    border-bottom: #ccc solid 1px;
+}
+
+#left-side {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+#menu {
+    width: calc(100% - 3rem);
+    min-height: 50px;
+    margin-inline: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;   
+}
+
+#buttons {
+    display: flex;
+    gap: 1rem;
+}
+
+button {
+    padding: .25rem .5rem;
+    border: 1px solid rgb(199, 199, 199);
+    border-radius: 6px;
+}
+
+button:hover {
+    background-color: #525252;
 }
 </style>
