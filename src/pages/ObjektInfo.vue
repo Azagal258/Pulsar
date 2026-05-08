@@ -127,7 +127,7 @@ watch(() => route.params.content, loadFromRoute)
     </section>
 
     <section class="members-gi" v-if="route.params.content === 'triples' || route.params.content === 'artms'">
-        <h1>More infos on the members!</h1>
+        <h1>More details on the members!</h1>
         <div v-if="error" class="error">
             {{ error }}
         </div>
@@ -221,6 +221,11 @@ watch(() => route.params.content, loadFromRoute)
   border: 2px solid rgb(140 140 140);
   font-family: sans-serif;
   letter-spacing: 1px;
+  margin-inline: 1.5rem;
+}
+
+.members-gi h1 {
+    margin: 1rem 1.5rem;
 }
 
 [lang="ja"] {
@@ -244,35 +249,3 @@ watch(() => route.params.content, loadFromRoute)
 }
 
 </style>
-
-#22aeff / #000000
-#a002fd / #FFFFFF
-#fff924 / #000000
-#9dbf41 / #000000
-#d94387 / #000000
-#fc83a4 / #000000
-#6799a0 / #000000
-#ffe3e2 / #000000
-#ffc935 / #000000
-#ff9ad6 / #000000
-#fde000 / #000000
-#5974ff / #000000
-#ff953f / #000000
-#1222b5 / #FFFFFF
-#d51313 / #FFFFFF
-#fe8e76 / #000000
-#ab61b8 / #000000
-#b8f54d / #000000
-#52d9ba / #000000
-#ff428a / #000000
-#c7a3e0 / #000000
-#7aba8c / #000000
-#cff2ff / #000000
-#ffab61 / #000000
-
-
-#ed008f / #000000
-#02c160 / #000000
-#db3647 / #000000
-#1824a7 / #FFFFFF
-#5b2b93 / #FFFFFF
