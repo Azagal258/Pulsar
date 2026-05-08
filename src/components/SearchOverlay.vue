@@ -2,7 +2,7 @@
 import { ref, watch } from "vue"
 import { useDebounceFn } from "@vueuse/core";
 import type { User } from "../types/user";
-import defaultAvatar from "../assets/vue.svg"
+import defaultAvatar from "../assets/profile.webp"
 
 const query = ref("")
 const results = ref<User[]>([])

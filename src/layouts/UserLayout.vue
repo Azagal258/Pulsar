@@ -3,6 +3,7 @@
 import { computed, ref, watch } from "vue";
 import { useRoute } from "vue-router";
 import UserDetailsBar from "../components/UserDetailsBar.vue"
+import defaultAvatar from "../assets/profile.webp"
 
 defineProps<{
     address: string
@@ -52,7 +53,7 @@ async function fetchProfilePicture(usr: string) {
     try {
         const res = await fetch(`/api/user/search?query=${encodeURIComponent(usr)}`)
         const data = await (res.json())
-        const pp = data.results?.[0]?.userProfiles?.[0]?.image?.original 
+        const pp = data.results?.[0]?.userProfiles?.[0]?.image?.original || defaultAvatar
 
         profilePicCache.set(usr, pp)
         profilePic.value = pp
