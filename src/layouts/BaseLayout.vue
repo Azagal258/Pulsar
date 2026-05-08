@@ -14,9 +14,11 @@ function updateResults(data: any) {
     <nav>
         <div id="menu">
             <div id="left-side">
+                <RouterLink :to="`/`" class="title-link">
                 <div id="title">
                     <h1 class="trispace">PULSAR</h1>
                 </div>
+                </RouterLink>
                 <div id="buttons">
                     <RouterLink :to="`/info/objekts`">
                         <button>Objekts infos</button>
@@ -77,5 +79,10 @@ button {
 
 button:hover {
     background-color: #525252;
+}
+
+.title-link {
+    text-decoration: none;
+    color: inherit;
 }
 </style>
