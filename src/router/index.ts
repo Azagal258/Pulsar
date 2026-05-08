@@ -7,6 +7,7 @@ import UserObjektsPage from '../pages/UserObjektsPage.vue'
 import UserTradesPage from '../pages/UserTradesPage.vue'
 import TestPage from '../pages/TestPage.vue'
 import UserLayout from '../layouts/UserLayout.vue'
+import ObjektInfo from '../pages/ObjektInfo.vue'
 
 const routes = [
     {
@@ -37,8 +38,12 @@ const routes = [
             {
                 path: 'about',
                 component: TestPage
-            }
+            },
         ]
+    },
+    {
+        path: '/info/:content',
+        component: ObjektInfo
     }
 ]
 

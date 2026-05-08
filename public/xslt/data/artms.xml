@@ -1,0 +1,47 @@
+<group>
+    <member id="HeeJin" color="#ed008f" contrast="#000000">
+        <name>Jeon Hee-jin</name>
+        <native lang="ko">전희진</native>
+        <number>1</number>
+        <birthday>October 19, 2000</birthday>
+        <nationality>Korean</nationality>
+        <debut>September 26, 2016</debut>
+        <color>Electric Rose</color>
+    </member>
+    <member id="HaSeul" color="#02c160" contrast="#000000">
+        <name>Cho Ha-seul</name>
+        <native lang="ko">조하슬</native>
+        <number>2</number>
+        <birthday>August 18, 1997</birthday>
+        <nationality>Korean</nationality>
+        <debut>December 8, 2016</debut>
+        <color>Emerald</color>
+    </member>
+    <member id="Kim Lip" color="#db3647" contrast="#000000">
+        <name>Kim Jung-eun</name>
+        <native lang="ko">김정은</native>
+        <number>3</number>
+        <birthday>February 10, 1999</birthday>
+        <nationality>Korean</nationality>
+        <debut>May 15, 2017</debut>
+        <color>Red</color>
+    </member>
+    <member id="JinSoul" color="#1824a7" contrast="#FFFFFF">
+        <name>Jeong Jin-sol</name>
+        <native lang="ko">정진솔</native>
+        <number>4</number>
+        <birthday>June 13, 1997</birthday>
+        <nationality>Korean</nationality>
+        <debut>June 13, 2017</debut>
+        <color>Blue</color>
+    </member>
+    <member id="Choerry" color="#5b2b93" contrast="#FFFFFF">
+        <name>Choi Ye-rim</name>
+        <native lang="ko">최예림</native>
+        <number>5</number>
+        <birthday>June 4, 2001</birthday>
+        <nationality>Korean</nationality>
+        <debut>July 12, 2017</debut>
+        <color>Indigo Velvet</color>
+    </member>
+</group>

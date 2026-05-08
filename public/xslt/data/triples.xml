@@ -1,0 +1,218 @@
+<group>
+    <member id="SeoYeon" color="#22aeff" contrast="#000000">
+        <name>Yoon Seo-yeon</name>
+        <native lang="ko">윤서연</native>
+        <number>S1</number>
+        <birthday>August 6, 2003</birthday>
+        <nationality>Korean</nationality>
+        <debut>May 1, 2022</debut>
+        <color>Fresh Sky</color>
+    </member>
+    <member id="HyeRin" color="#a002fd" contrast="#FFFFFF">
+        <name>Jeong Hye-rin</name>
+        <native lang="ko">정혜린</native>
+        <number>S2</number>
+        <birthday>April 12, 2007</birthday>
+        <nationality>Korean</nationality>
+        <debut>May 17, 2022</debut>
+        <color>Purple (X11)</color>
+    </member>
+    <member id="JiWoo" color="#fff924" contrast="#000000">
+        <name>Lee Ji-woo</name>
+        <native lang="ko">이지우</native>
+        <number>S3</number>
+        <birthday>October 24, 2005</birthday>
+        <nationality>Korean</nationality>
+        <debut>June 1, 2022</debut>
+        <color>Yellow</color>
+    </member>
+    <member id="ChaeYeon" color="#9dbf41" contrast="#000000">
+        <name>Kim Chae-yeon</name>
+        <native lang="ko">김채연</native>
+        <number>S4</number>
+        <birthday>December 4, 2004</birthday>
+        <nationality>Korean</nationality>
+        <debut>June 22, 2022</debut>
+        <color>Yellow Green</color>
+    </member>
+    <member id="YooYeon" color="#d94387" contrast="#000000">
+        <name>Kim Yoo-yeon</name>
+        <native lang="ko">김유연</native>
+        <number>S5</number>
+        <birthday>February 9, 2001</birthday>
+        <nationality>Korean</nationality>
+        <debut>July 11, 2022</debut>
+        <color>Rose Punch</color>
+    </member>
+    <member id="SooMin" color="#fc83a4" contrast="#000000">
+        <name>Kim Soo-min</name>
+        <native lang="ko">김수민</native>
+        <number>S6</number>
+        <birthday>October 3, 2007</birthday>
+        <nationality>Korean</nationality>
+        <debut>August 8, 2022</debut>
+        <color>Bubblegum Tint</color>
+    </member>
+    <member id="NaKyoung" color="#6799a0" contrast="#000000">
+        <name>Kim Na-kyoung</name>
+        <native lang="ko">김나경</native>
+        <number>S7</number>
+        <birthday>October 13, 2002</birthday>
+        <nationality>Korean</nationality>
+        <debut>August 22, 2022</debut>
+        <color>Pacific Blue</color>
+    </member>
+    <member id="YuBin" color="#ffe3e2" contrast="#000000">
+        <name>Gong Yu-bin</name>
+        <native lang="ko">공유빈</native>
+        <number>S8</number>
+        <birthday>February 3, 2005</birthday>
+        <nationality>Korean</nationality>
+        <debut>September 9, 2022</debut>
+        <color>Soft Blush</color>
+    </member>
+    <member id="Kaede" color="#ffc935" contrast="#000000">
+        <name>Yamada Kaede</name>
+        <native lang="ja">山田 楓</native>
+        <number>S9</number>
+        <birthday>December 20, 2005</birthday>
+        <nationality>Japanese</nationality>
+        <debut>November 9, 2022</debut>
+        <color>Golden Pollen</color>
+    </member>
+    <member id="DaHyun" color="#ff9ad6" contrast="#000000">
+        <name>Seo Da-hyun</name>
+        <native lang="ko">서다현</native>
+        <number>S10</number>
+        <birthday>January 8, 2003</birthday>
+        <nationality>Korean</nationality>
+        <debut>December 9, 2022</debut>
+        <color>Baby Pink</color>
+    </member>
+    <member id="Kotone" color="#fde000" contrast="#000000">
+        <name>Kamimoto Kotone</name>
+        <native lang="ja">嘉味元 琴音</native>
+        <number>S11</number>
+        <birthday>March 10, 2004</birthday>
+        <nationality>Japanese</nationality>
+        <debut>January 2, 2023</debut>
+        <color>Bright Gold</color>
+    </member>
+    <member id="YeonJi" color="#5974ff" contrast="#000000">
+        <name>Kwak Yeon-Ji</name>
+        <native lang="ko">곽연지</native>
+        <number>S12</number>
+        <birthday>January 8, 2008</birthday>
+        <nationality>Korean</nationality>
+        <debut>January 18, 2023</debut>
+        <color>Electric Sapphire</color>
+    </member>
+    <member id="Nien" color="#ff953f" contrast="#000000">
+        <name>Hsü Nien-tz'u</name>
+        <native lang="zh-Hant">許念慈</native>
+        <number>S13</number>
+        <birthday>June 2, 2003</birthday>
+        <nationality>Taiwanese</nationality>
+        <debut>March 20, 2023</debut>
+        <color>Dark Orange</color>
+    </member>
+    <member id="SoHyun" color="#1222b5" contrast="#FFFFFF">
+        <name>Park So-hyun</name>
+        <native lang="ko">박소현</native>
+        <number>S14</number>
+        <birthday>October 13, 2002</birthday>
+        <nationality>Korean</nationality>
+        <debut>April 14, 2023</debut>
+        <color>Vivid Royal</color>
+    </member>
+    <member id="Xinyu" color="#d51313" contrast="#FFFFFF">
+        <name>Zhōu Xīnyǔ</name>
+        <native lang="zh-Hans">周心语</native>
+        <number>S15</number>
+        <birthday>May 25, 2002</birthday>
+        <nationality>Chinese</nationality>
+        <debut>July 2, 2023</debut>
+        <color>Flag Red</color>
+    </member>
+    <member id="Mayu" color="#fe8e76" contrast="#000000">
+        <name>Kōma Mayu</name>
+        <native lang="ja">高麗 真友</native>
+        <number>S16</number>
+        <birthday>May 12, 2002</birthday>
+        <nationality>Japanese</nationality>
+        <debut>July 19, 2023</debut>
+        <color>Salmon</color>
+    </member>
+    <member id="Lynn" color="#ab61b8" contrast="#000000">
+        <name>Kawakami Rin</name>
+        <native lang="ja">川上 凜</native>
+        <number>S17</number>
+        <birthday>April 12, 2006</birthday>
+        <nationality>Japanese</nationality>
+        <debut>December 21, 2023</debut>
+        <color>Lavender Purple</color>
+    </member>
+    <member id="JooBin" color="#b8f54d" contrast="#000000">
+        <name>Joo Bin</name>
+        <native lang="ko">주빈</native>
+        <number>S18</number>
+        <birthday>January 16, 2009</birthday>
+        <nationality>Korean</nationality>
+        <debut>December 22, 2023</debut>
+        <color>Green Yellow</color>
+    </member>
+    <member id="HaYeon" color="#52d9ba" contrast="#000000">
+        <name>Jeong Ha-yeon</name>
+        <native lang="ko">정하연</native>
+        <number>S19</number>
+        <birthday>August 1, 2007</birthday>
+        <nationality>Korean</nationality>
+        <debut>December 23, 2023</debut>
+        <color>Turquoise</color>
+    </member>
+    <member id="ShiOn" color="#ff428a" contrast="#000000">
+        <name>Park Shi-on</name>
+        <native lang="ko">박시온</native>
+        <number>S20</number>
+        <birthday>April 3, 2006</birthday>
+        <nationality>Korean</nationality>
+        <debut>December 24, 2023</debut>
+        <color>Wild Strawberry</color>
+    </member>
+    <member id="ChaeWon" color="#c7a3e0" contrast="#000000">
+        <name>Kim Chae-won</name>
+        <native lang="ko">김채원</native>
+        <number>S21</number>
+        <birthday>May 2, 2007</birthday>
+        <nationality>Korean</nationality>
+        <debut>April 1, 2024</debut>
+        <color>Wisteria</color>
+    </member>
+    <member id="Sullin" color="#7aba8c" contrast="#000000">
+        <name>Pirada Bunraksa</name>
+        <native lang="th">พิรดา บุญรักษา</native>
+        <number>S22</number>
+        <birthday>November 30, 2006</birthday>
+        <nationality>Thai</nationality>
+        <debut>April 2, 2024</debut>
+        <color>Mint Leaf</color>
+    </member>
+    <member id="SeoAh" color="#cff2ff" contrast="#000000">
+        <name>Jeong Hae-rin</name>
+        <native lang="ko">정해린</native>
+        <number>S23</number>
+        <birthday>June 11, 2010</birthday>
+        <nationality>Korean</nationality>
+        <debut>April 3, 2024</debut>
+        <color>Pale Sky</color>
+    </member>
+    <member id="JiYeon" color="#ffab61" contrast="#000000">
+        <name>Ji Suh-yeon</name>
+        <native lang="ko">지서연</native>
+        <number>S24</number>
+        <birthday>February 13, 2004</birthday>
+        <nationality>Korean</nationality>
+        <debut>April 4, 2024</debut>
+        <color>Sandy Brown</color>
+    </member>
+</group>
