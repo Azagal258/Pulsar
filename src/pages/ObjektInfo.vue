@@ -223,6 +223,26 @@ watch(() => route.params.content, loadFromRoute)
   letter-spacing: 1px;
 }
 
+[lang="ja"] {
+    font-family: "Noto Sans JP", sans-serif;
+}
+
+[lang="ko"] {
+    font-family: "Noto Sans KR", sans-serif;
+}
+
+[lang="zh-Hans"] {
+    font-family: "Noto Sans SC", sans-serif;
+}
+
+[lang="zh-Hant"] {
+    font-family: "Noto Sans TC", sans-serif;
+}
+
+[lang="th"] {
+    font-family: "Noto Sans Thai Looped", sans-serif;
+}
+
 </style>
 
 #22aeff / #000000
