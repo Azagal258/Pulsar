@@ -17,7 +17,11 @@
                         <xsl:attribute name="style">--member-color:<xsl:value-of select="@color"/>;--contrast-color:<xsl:value-of select="@contrast"/></xsl:attribute>
                         <td><xsl:value-of select="@id"/></td>
                         <td><xsl:value-of select="name"/></td>
-                        <td><xsl:value-of select="native"/></td>
+                        <td>
+                            <span lang="{native/@lang}">
+                                <xsl:value-of select="native"/>
+                            </span>
+                        </td>
                         <td><xsl:value-of select="number"/></td>
                         <td><xsl:value-of select="birthday"/></td>
                         <td><xsl:value-of select="nationality"/></td>
