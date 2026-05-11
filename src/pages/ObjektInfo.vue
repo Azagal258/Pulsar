@@ -22,20 +22,25 @@ const config: Record<string, { xml: string, xsl: string }> = {
 
 async function loadXslt(xmlPath: string, xslPath: string) {
     try {
+        // fetch both data and transformations
         const [xmlText, xslText] = await Promise.all([
             fetch(xmlPath).then(r => r.text()),
             fetch(xslPath).then(r => r.text())
         ])
 
+        // prepare insertion to HTML
         const parser = new DOMParser()
         const xmlDoc = parser.parseFromString(xmlText, 'text/xml')
         const xslDoc = parser.parseFromString(xslText, 'text/xml')
 
+        // prepare XSL
         const processor = new XSLTProcessor()
         processor.importStylesheet(xslDoc)
 
+        // XSLT magic
         const fragment = processor.transformToFragment(xmlDoc, document)
 
+        // if previous step didn't fail, display it
         if (output.value) {
             output.value.innerHTML = ''
             output.value.appendChild(fragment)

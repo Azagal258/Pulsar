@@ -14,6 +14,7 @@ const address = props.owner;
 const offset = ref(0);
 const transfersList = ref<TransferRenderer>([]);
 
+// gets the transfer's party who isn't the viewed user
 function getOtherPerson(transfer: Entry, my_address: string): string[] {
     const MINT = "0x0000000000000000000000000000000000000000"
     const SPIN = "0xd3d5f29881ad87bb10c1100e2c709c9596de345f"
@@ -75,6 +76,7 @@ const fetchTransfers = async (offset: number): Promise<TransferRenderer> => {
         })
     }).then(response => response.json());
 
+    // add a humuan readable timestamp set to the device's locale 
     const hrTimeTransfer : Transfers = response.data.transfers.map(transfers => ({
         ...transfers,
         created_at_hr_loc: new Date(transfers.timestamp).toLocaleString()

@@ -7,6 +7,7 @@ const selectedList = defineModel<Objekts>("selectedList", {required: true});
 const isDownloading = ref(false);
 const toastMessage = ref<string | null>(null);
 
+// Toast!
 function showToast(message: string, duration = 3000) {
     toastMessage.value = message;
     setTimeout(() => {
@@ -17,11 +18,13 @@ function showToast(message: string, duration = 3000) {
 const downloadImagesAsZip = async() => {
     if (!selectedList.value?.length) return;
 
+    // Don't trigger twice if downloading already
     isDownloading.value = true;
 
     try {
         const zipMaker = new ZipWriter(new BlobWriter('application/zip'));
 
+        // Prepare all images for download
         for (const item of selectedList.value) {
             const blob = await fetch(item.frontImage).then(response => response.blob());
             await zipMaker.add(`${item.slug}.png`, new BlobReader(blob));

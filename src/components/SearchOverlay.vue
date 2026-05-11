@@ -33,7 +33,7 @@ async function fetchResults(q: string) {
     if (cache.has(q)) {
         return cache.get(q)
     }
-    // there's a special stuff in the config, the base /api sends to apollo.cafe
+    // uses backend
     const res = await fetch(`/api/user/search?query=${encodeURIComponent(q)}`)
     const data = await res.json()
 

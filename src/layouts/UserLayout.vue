@@ -18,12 +18,14 @@ const usernameCache = new Map<string, string>()
 const profilePicCache = new Map<string, string>()
 
 async function fetchUsername(addr: string) {
+    // Use cache instead of requesting if possible
     if (usernameCache.has(addr)) {
         username.value = usernameCache.get(addr)!
         return
     }
 
     try {
+        // uses backend
         const response = await fetch("/api/user/by-address", {
             method: "POST",
             headers: {
@@ -51,6 +53,7 @@ async function fetchProfilePicture(usr: string) {
     }
 
     try {
+        // uses backend
         const res = await fetch(`/api/user/search?query=${encodeURIComponent(usr)}`)
         const data = await (res.json())
         const pp = data.results?.[0]?.userProfiles?.[0]?.image?.original || defaultAvatar

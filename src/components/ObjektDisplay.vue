@@ -127,6 +127,7 @@ onUnmounted(() => {
     window.removeEventListener("scroll", handleScroll);
 });
 
+// placeholder while objekts load
 const transitionSkeleton = (id: string) => {
     loadedImages.value[id] = true;
     setTimeout(() => {
