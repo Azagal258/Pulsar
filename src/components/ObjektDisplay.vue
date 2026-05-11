@@ -1,7 +1,7 @@
 <script setup lang="ts">
 
 import { ref, watch, onMounted, onUnmounted } from "vue";
-import type { Objekts } from "../types/objekts";
+import type { Objekt, Objekts } from "../types/objekts";
 
 const props = defineProps<{
     objektClass?: string
@@ -43,6 +43,9 @@ const fetchImages = async (offset: number) => {
         query UserQuery {
             objekts(where: {owner_eq: "${props.owner}", collection: { ${whereClause} }}, offset: ${offset}, limit: ${pageSize}, orderBy: receivedAt_DESC) {
                 collection {
+                    season
+                    collectionNo
+                    member
                     slug
                     frontImage
                 }
@@ -53,6 +56,9 @@ const fetchImages = async (offset: number) => {
         objektsQuery = `
         query MyQuery {
             collections(where: { ${whereClause} }, offset: ${offset}, limit: ${pageSize}, orderBy: createdAt_DESC) {
+                season
+                collectionNo
+                member
                 slug
                 frontImage
             }
@@ -73,12 +79,13 @@ const fetchImages = async (offset: number) => {
     const rawList = props.displayMode === "user-collections"
         ? response.data.objekts.map(o => o.collection)
         : response.data.collections
-
-    return rawList.map(unit => ({
+    console.log(rawList)
+    return rawList.map((unit : Objekt) => ({
         // reuses the previous data
         ...unit,
         // adds new line, replacing whatever at the end with 2x
-        frontImage2x: unit.frontImage.replace(/\/[^/]+$/, "/2x")
+        frontImage2x: unit.frontImage.replace(/\/[^/]+$/, "/2x"),
+        collectionName: `${unit.season} ${unit.member} ${unit.collectionNo}`
     }));
 }
 
@@ -173,7 +180,7 @@ watch(
                 </div>
             </div>
             <div class="display-details">
-                {{ singleObjekt.slug }}
+                {{ singleObjekt.collectionName }}
             </div>
         </div>
     </div>

@@ -72,7 +72,7 @@ const downloadImagesAsZip = async() => {
                     />
                     <span class="checkmark"></span>
                 </label>
-                <span id="objekt-id">{{ objekt.slug }}</span>
+                <span id="objekt-id">{{ objekt.collectionName }}</span>
                 </div>
             </ul>
         </div>
