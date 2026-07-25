@@ -86,9 +86,10 @@ watch(() => route.params.content, loadFromRoute)
             <li>Cream01</li>
             <li>Divine01</li>
             <li>Ever01</li>
-            <p class="sublist">For tripleS only</p>
             <li>Atom02</li>
+            <p class="sublist">For tripleS only</p>
             <li>Binary02</li>
+            <li>Cream02</li>
         </ul>
         <p>Seasons are split in 3 Editions and last between 6 months and a year.</p>
         
@@ -108,18 +109,21 @@ watch(() => route.params.content, loadFromRoute)
 
         <h2>Grids</h2>
         <p>A grid is a collection of 8 (for Edition 1&2) or 4 (Edition 3) unique FCO tied to one member of a group.</p>
-        <p>The FCOs are buyable all throughout the Season but not after. </p>
-        <p>There's a rolling 1 day period at the start of each edition where it's possible to specifically buy one member's own FCOs.</p>
+        <p>The FCOs are buyable all throughout the Season but not after. Those are buyable through dedicated packs in the Shop</p>
+        <p>By default, there's a rolling 1 day period at the start of each edition where it's possible to specifically buy one member's own FCOs.</p>
+        <p>Some seasons works differently and will extend the windows to the entire duration of the FCO release</p>
         <p>Finishing a grid will render your FCOs untradable and grant you one of two version of the Edition's SCO at random.</p>
 
         <h2>Gravities/Como</h2>
-        <p>Gravities are votes organized by Modhaus to let the fans decide on the direction of the group (can be about anything).</p>
+        <p>Gravities are votes organized by Modhaus to let the fans decide on the direction of the group. </p>
+        <p>Those can be about anything, from choosing the title track(s) of an album, to what outfits the members wear at a concert</p>
         <p>The token used in Gravities are called Como and are specific to a group.</p>
-        <p>A TripleS Objekt will grants TripleS' Como and an ARTMS Objekt will grant ARTMS Como.</p>
+        <p>A tripleS Objekt will grants tripleS' Como and an ARTMS Objekt will grant ARTMS Como, and so on...</p>
         <p>Como can't be bought by themselves. Receiving/Transferring an Objekt won't grant/remove Como</p>
 
         <h2>Spin</h2>
         <p>Spin is a system that allows you to reroll you objekts for a change of getting a better grade objekt.</p>
+        <p>THe statistics are available on the page for Spin in the Cosmo app</p>
         <p><strong>IT IS POSSIBLE TO FAIL A SPIN, WHICH MAKES YOU LOOSE THE OBJEKT SPINNED</strong></p>
         <p><strong>SPINNING A SCO/PCO DOESN'T CHANGE THE ODDS OF UPGRADE AND IS THEREFORE NOT RECOMMENDED</strong></p>
 
@@ -178,6 +182,7 @@ watch(() => route.params.content, loadFromRoute)
 .objekts-general-infos thead td {
     background-color: #15575c;
     color: white;
+    font-weight: 650;
 }
 
 .objekts-general-infos tbody {
@@ -211,6 +216,10 @@ watch(() => route.params.content, loadFromRoute)
 
 .objekts-general-infos td {
   text-align: center;
+}
+
+.objekts-general-infos strong {
+    font-weight: 725;
 }
 
 .members-gi th, .members-gi td {
