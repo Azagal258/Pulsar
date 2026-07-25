@@ -84,7 +84,7 @@ const fetchImages = async (offset: number) => {
         // reuses the previous data
         ...unit,
         // adds new line, replacing whatever at the end with 2x
-        frontImage2x: unit.frontImage.replace(/\/[^/]+$/, "/2x"),
+        frontImage2x: unit.frontImage.replace("/4x|original$/i", "/2x"),
         collectionName: `${unit.season} ${unit.member} ${unit.collectionNo}`
     }));
 }
